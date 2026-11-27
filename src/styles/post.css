@@ -97,7 +97,9 @@
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: var(--rise);
+  /* Ends inside the cover's 3px line rather than at its edge, so pixel rounding never
+     lets the sides poke out below it. */
+  height: calc(var(--rise) - 2px);
   border: 3px solid var(--ink);
   border-bottom: 0;
   border-radius: 18px 18px 0 0;
