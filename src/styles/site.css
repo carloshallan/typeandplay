@@ -264,6 +264,19 @@ a.post-slot:hover .post-slot-n { color: var(--screen-line); }
 }
 .post-slot-go { font-size: 1.1rem; }
 
+/* The post's cover as a small screen beside the title. */
+.post-slot.has-cover { grid-template-columns: auto 220px minmax(0, 1fr) auto; }
+.post-slot-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+}
+a.post-slot:hover .post-slot-cover { border-color: var(--paper); }
+
 .post-slot.is-empty {
   border-style: dashed;
   background: transparent;
@@ -292,6 +305,9 @@ a.post-slot:hover .post-slot-n { color: var(--screen-line); }
   .post-slot { grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 14px 14px 14px 12px; }
   .post-slot-n { font-size: 1.9rem; }
   .post-slot-go { display: none; }
+  /* On phones the cover sits on top, the full width of the slot. */
+  .post-slot.has-cover { grid-template-columns: auto minmax(0, 1fr); }
+  .post-slot-cover { grid-column: 1 / -1; }
 }
 
 @media (max-width: 420px) {

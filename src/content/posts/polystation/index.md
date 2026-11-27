@@ -2,6 +2,8 @@
 title: O videogame que veio da feira
 description: Meu pai saiu para comprar verduras e voltou com um Polystation. Foi por ele que eu conheci o Nintendinho.
 date: 2026-11-27
+cover: ./cover.png
+coverAlt: Uma banca de feira com toldo listrado. No caixote, entre a alface, as cenouras e os tomates, está um videogame cinza; o controle ficou em cima da mesa.
 game: Super Mario Bros., Double Dragon, Ninja Gaiden
 platform: Polystation
 draft: true
