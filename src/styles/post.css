@@ -54,43 +54,49 @@
   border-radius: 14px;
 }
 
-/* Full HD and up: a wider column, with the type grown to keep about 80 characters a line. */
+/* Full HD and up: a little wider, while the text keeps a book's measure (about 72 characters). */
 @media (min-width: 1600px) {
-  .post { max-width: 980px; }
+  .post { max-width: 860px; }
 }
 
-/* ---------- Body text ---------- */
+/* ---------- Body text ----------
+   Set like a book page: 65 to 75 characters a line, leading of 1.6, one line
+   between paragraphs, and list items held tighter than the gap between them. */
 .prose {
-  margin-top: 40px;
-  font-size: clamp(1.14rem, 1.7vw, 1.24rem);
-  line-height: 1.78;
+  margin-top: 44px;
+  font-size: clamp(1.13rem, 1.6vw, 1.22rem);
+  font-weight: 400;
+  line-height: 1.62;
+  letter-spacing: 0.003em;
+  font-kerning: normal;
   text-wrap: pretty;
 }
 .prose > :first-child { margin-top: 0; }
 @media (min-width: 1600px) {
-  .prose { font-size: 1.32rem; }
-  .post-lede { font-size: 1.5rem; }
+  .prose { font-size: 1.28rem; }
+  .post-lede { font-size: 1.45rem; }
 }
 
-.prose p { margin: 0 0 1.3em; }
+.prose p { margin: 0 0 1em; }
 
 .prose h2 {
-  margin: 2.1em 0 0.6em;
-  font-size: 1.8rem;
+  margin: 1.9em 0 0.45em;
+  font-size: 1.7rem;
   font-weight: 440;
   line-height: 1.2;
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
 .prose h3 {
-  margin: 1.9em 0 0.5em;
+  margin: 1.7em 0 0.3em;
   font-family: var(--pixel);
-  font-size: 1.55rem;
+  font-size: 1.65rem;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+.prose h2 + h3 { margin-top: 0.9em; }
 
 .prose a { text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .prose a:hover { text-decoration-thickness: 3px; }
@@ -98,33 +104,41 @@
 .prose strong { font-weight: 560; }
 
 .prose ul,
-.prose ol { margin: 0 0 1.3em; padding-left: 1.4em; }
-.prose li { margin: 0.35em 0; }
-.prose li::marker { font-family: var(--pixel); }
+.prose ol { margin: 0 0 1em; padding-left: 1.2em; }
+.prose li {
+  margin: 0 0 0.5em;
+  padding-left: 0.25em;
+  line-height: 1.5;
+}
+.prose li:last-child { margin-bottom: 0; }
+.prose li > ul,
+.prose li > ol { margin: 0.5em 0 0; }
+.prose li::marker { color: var(--muted-ink); }
 
 .prose img {
   display: block;
   width: 100%;
   height: auto;
-  margin: 2.2em 0;
+  margin: 2em 0;
   border: 3px solid var(--ink);
   border-radius: 12px;
 }
 
 /* A quote sits inside a screen. */
 .prose blockquote {
-  margin: 2em 0;
-  padding: 20px 24px;
+  margin: 1.8em 0;
+  padding: 18px 24px;
   border: 3px solid var(--ink);
   border-radius: 12px;
   background: var(--screen);
   font-style: italic;
+  line-height: 1.55;
 }
 .prose blockquote p:last-child { margin-bottom: 0; }
 
 .prose hr {
   height: auto;
-  margin: 2.6em 0;
+  margin: 2.2em 0;
   border: 0;
   text-align: center;
 }
