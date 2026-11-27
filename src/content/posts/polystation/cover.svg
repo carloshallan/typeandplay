@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700">
+  <!-- Source of cover.png (1600×700, the blog's cover size). A street-market stall:
+       the console sits in the vegetable crate. Flat colours, ink outlines. -->
+  <rect width="1600" height="700" fill="#f2b33d"/>
+
+  <g stroke="#0e2326" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Awning -->
+    <path d="M-10 -10H200V90A105 56 0 0 1 -10 90Z" fill="#e5483f"/>
+    <path d="M200 -10H400V90A100 56 0 0 1 200 90Z" fill="#f6f1e4"/>
+    <path d="M400 -10H600V90A100 56 0 0 1 400 90Z" fill="#e5483f"/>
+    <path d="M600 -10H800V90A100 56 0 0 1 600 90Z" fill="#f6f1e4"/>
+    <path d="M800 -10H1000V90A100 56 0 0 1 800 90Z" fill="#e5483f"/>
+    <path d="M1000 -10H1200V90A100 56 0 0 1 1000 90Z" fill="#f6f1e4"/>
+    <path d="M1200 -10H1400V90A100 56 0 0 1 1200 90Z" fill="#e5483f"/>
+    <path d="M1400 -10H1610V90A105 56 0 0 1 1400 90Z" fill="#f6f1e4"/>
+
+    <!-- Table -->
+    <rect x="-20" y="560" width="1640" height="160" fill="#a8683a"/>
+    <rect x="-20" y="560" width="1640" height="34" fill="#c58147"/>
+  </g>
+
+  <!-- The stall, drawn at its original size and scaled to fit under the awning. -->
+  <g transform="translate(111 -96) scale(0.82)" stroke="#0e2326" stroke-width="9.75" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Carrots, behind the crate -->
+    <path d="M590 640 L560 452 Q590 436 618 448 Z" fill="#ec7a2c"/>
+    <path d="M574 448 Q556 400 540 384 M590 444 Q592 392 600 370 M606 448 Q630 404 652 392" fill="none" stroke-width="12" stroke="#3f7d2b"/>
+    <path d="M668 640 L652 470 Q680 458 706 470 Z" fill="#ec7a2c"/>
+    <path d="M664 468 Q650 424 632 410 M680 464 Q684 416 694 396 M694 468 Q716 428 738 420" fill="none" stroke-width="12" stroke="#3f7d2b"/>
+
+    <!-- Lettuce, behind the crate -->
+    <circle cx="460" cy="560" r="118" fill="#6fb04a"/>
+    <path d="M400 520 Q440 470 500 500 M410 590 Q460 540 530 566" fill="none" stroke-width="8.5"/>
+
+    <!-- The console, standing in the crate -->
+    <rect x="770" y="410" width="350" height="200" rx="20" fill="#cfcbc4"/>
+    <circle cx="890" cy="500" r="62" fill="#b8b3ab"/>
+    <circle cx="890" cy="500" r="16" fill="#8a817b"/>
+    <circle cx="1030" cy="462" r="15" fill="#8a817b"/>
+    <circle cx="1074" cy="462" r="15" fill="#8a817b"/>
+    <circle cx="1080" cy="530" r="10" fill="#e5483f" stroke-width="7.3"/>
+
+    <!-- Tomatoes, behind the crate -->
+    <circle cx="1188" cy="584" r="62" fill="#e5483f"/>
+    <path d="M1170 526 L1188 538 L1206 526" fill="none" stroke="#3f7d2b" stroke-width="12"/>
+
+    <!-- Crate front -->
+    <rect x="350" y="590" width="900" height="240" rx="10" fill="#d39a5c"/>
+    <path d="M350 670H1250M350 750H1250" fill="none" stroke-width="7.3"/>
+    <rect x="350" y="590" width="56" height="240" fill="#b97d45"/>
+    <rect x="1194" y="590" width="56" height="240" fill="#b97d45"/>
+
+    <!-- Controller on the table -->
+    <path d="M150 880 A62 62 0 0 1 212 818 H340 A62 62 0 0 1 340 942 H212 A62 62 0 0 1 150 880 Z" fill="#cfcbc4"/>
+    <path d="M192 866h14v-14h16v14h14v16h-14v14h-16v-14h-14z" fill="#4d5650" stroke-width="6"/>
+    <circle cx="336" cy="872" r="13" fill="#8a817b" stroke-width="6"/>
+    <circle cx="368" cy="890" r="13" fill="#8a817b" stroke-width="6"/>
+    <path d="M276 818 Q300 760 360 760 Q420 760 410 700" fill="none" stroke-width="12"/>
+
+    <!-- Loose tomatoes on the table -->
+    <circle cx="1380" cy="770" r="56" fill="#e5483f"/>
+    <circle cx="1470" cy="790" r="50" fill="#e5483f"/>
+    <path d="M1364 718 L1380 728 L1396 718 M1456 744 L1470 752 L1484 744" fill="none" stroke="#3f7d2b" stroke-width="11"/>
+  </g>
+</svg>

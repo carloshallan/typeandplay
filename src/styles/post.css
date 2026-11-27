@@ -1,10 +1,15 @@
 /* A single post, on paper, set for long reading. */
 
+/* The page: a text column, with the cover across the whole window between the head and the text. */
 .post {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: clamp(32px, 6vh, 64px) var(--gutter) clamp(48px, 8vh, 88px);
+  padding: 0 var(--gutter) clamp(48px, 8vh, 88px);
+}
+.post.post-head {
+  padding-top: clamp(32px, 6vh, 64px);
+  padding-bottom: 0;
 }
 
 .post-head h1 {
@@ -45,13 +50,17 @@
   background: var(--screen);
 }
 
+/* Covers are 1600×700 and fill the window's width, edge to edge; ink lines close the band. */
 .post-cover {
   display: block;
   width: 100%;
   height: auto;
-  margin: 36px 0 0;
-  border: 4px solid var(--ink);
-  border-radius: 14px;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  margin: 40px 0 0;
+  border: 0;
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
 }
 
 /* Full HD and up: a little wider, while the text keeps a book's measure (about 72 characters). */
@@ -79,24 +88,63 @@
 
 .prose p { margin: 0 0 1em; }
 
+/* Section titles: the save menu's cursor, in the console's turquoise, beside the words. */
 .prose h2 {
-  margin: 1.9em 0 0.45em;
-  font-size: 1.7rem;
-  font-weight: 440;
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  margin: 1.9em 0 0.5em;
+  font-size: 1.75rem;
+  font-weight: 460;
   line-height: 1.2;
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
+.prose h2::before {
+  content: "";
+  flex: none;
+  width: 1.05em;
+  height: 1.05em;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--shell)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3 2l5 3-5 3z' fill='%232b2a27'/%3E%3C/svg%3E")
+    center / 62% no-repeat;
+}
+
+/* Subsections: a label, like the console's on-screen tags. */
 .prose h3 {
-  margin: 1.7em 0 0.3em;
+  display: table;
+  margin: 1.8em 0 0.6em;
+  padding: 3px 12px 2px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--paper);
   font-family: var(--pixel);
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.15;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.prose h2 + h3 { margin-top: 0.9em; }
+.prose h2 + h3 { margin-top: 1em; }
+
+/* Smaller headings: a red square, the power light's colour. */
+.prose h4 {
+  margin: 1.5em 0 0.3em;
+  font-size: 1.2rem;
+  font-weight: 560;
+}
+.prose h4::before {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.45em;
+  border: 2px solid var(--ink);
+  background: var(--led);
+  vertical-align: 0.05em;
+}
 
 .prose a { text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .prose a:hover { text-decoration-thickness: 3px; }

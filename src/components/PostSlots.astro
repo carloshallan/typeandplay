@@ -16,7 +16,7 @@ const { posts } = Astro.props
         <a class={post.data.cover ? "post-slot has-cover" : "post-slot"} href={postUrl(post)}>
           <span class="post-slot-n">{padNumber(post.number)}</span>
           {post.data.cover && (
-            <Image class="post-slot-cover" src={post.data.cover} alt="" widths={[240, 480]} sizes="220px" />
+            <Image class="post-slot-cover" src={post.data.cover} alt="" widths={[240, 480]} sizes="240px" />
           )}
           <span class="post-slot-body">
             <span class="post-slot-title">

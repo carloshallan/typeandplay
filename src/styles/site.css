@@ -22,6 +22,15 @@ body > main { flex: 1; }
 
 .tone-shell { background: var(--shell); }
 .tone-paper { background: var(--paper); }
+/* The blog reads like an e-reader: the page's own ink, sheet and grey. */
+.tone-reader { background: var(--reader-paper); }
+.tone-reader main {
+  --ink: var(--reader-ink);
+  --paper: var(--reader-card);
+  --muted-ink: var(--reader-muted);
+  --screen: var(--reader-screen);
+  color: var(--ink);
+}
 
 a { color: inherit; }
 
@@ -39,7 +48,8 @@ a { color: inherit; }
   gap: 16px;
   padding: 22px var(--gutter);
 }
-.tone-paper .site-header {
+.tone-paper .site-header,
+.tone-reader .site-header {
   background: var(--shell);
   border-bottom: 3px solid var(--ink);
 }
@@ -96,7 +106,8 @@ a { color: inherit; }
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.tone-paper .site-footer { background: var(--shell); }
+.tone-paper .site-footer,
+.tone-reader .site-footer { background: var(--shell); }
 .site-footer a { text-underline-offset: 4px; }
 
 /* ---------- Shared pieces ---------- */
@@ -277,12 +288,12 @@ a.post-slot:hover .post-slot-n { color: var(--screen-line); }
 .post-slot-go { font-size: 1.1rem; }
 
 /* The post's cover as a small screen beside the title. */
-.post-slot.has-cover { grid-template-columns: auto 220px minmax(0, 1fr) auto; }
+.post-slot.has-cover { grid-template-columns: auto 240px minmax(0, 1fr) auto; }
 .post-slot-cover {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 7;
   object-fit: cover;
   border: 3px solid var(--ink);
   border-radius: 10px;

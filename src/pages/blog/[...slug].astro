@@ -29,9 +29,9 @@ const cartridge = [game, platform, year].filter(Boolean).join(" · ")
 const SAVE_BLOCKS = 10
 ---
 
-<Base title={title} description={description} image={shareImage} tone="paper" type="article">
-  <main class="post">
-    <header class="post-head">
+<Base title={title} description={description} image={shareImage} tone="reader" type="article">
+  <main class="post-page">
+    <header class="post post-head">
       <p class="hud">
         Memória {padNumber(post.number)} · <time datetime={date.toISOString()}>{formatDate(date)}</time>
         {draft && " · Rascunho"}
@@ -44,51 +44,54 @@ const SAVE_BLOCKS = 10
       </p>
     </header>
 
+    {/* Covers are 1600×700 and run the full width of the window (see AGENTS.md). */}
     {
       cover && (
         <Image
           class="post-cover"
           src={cover}
           alt={coverAlt ?? ""}
-          widths={[640, 960, 1440]}
-          sizes="(max-width: 800px) 100vw, (min-width: 1600px) 870px, 690px"
+          widths={[800, 1200, 1600]}
+          sizes="100vw"
           loading="eager"
         />
       )
     }
 
-    <div class="prose">
-      <Content components={{ YouTube }} />
-    </div>
-
-    <footer class="post-end">
-      <div class="saved" aria-hidden="true">
-        <span class="saved-bar">{Array.from({ length: SAVE_BLOCKS }, () => <i />)}</span>
-        <span class="saved-label">Memória salva.</span>
+    <div class="post">
+      <div class="prose">
+        <Content components={{ YouTube }} />
       </div>
 
-      {
-        (older || newer) && (
-          <nav class="post-nav" aria-label="Outros textos">
-            {older && (
-              <a class="post-nav-link is-older" href={postUrl(older)}>
-                <span class="post-nav-dir">← Memória anterior</span>
-                <span class="post-nav-title">{older.data.title}</span>
-              </a>
-            )}
-            {newer && (
-              <a class="post-nav-link is-newer" href={postUrl(newer)}>
-                <span class="post-nav-dir">Próxima memória →</span>
-                <span class="post-nav-title">{newer.data.title}</span>
-              </a>
-            )}
-          </nav>
-        )
-      }
+      <footer class="post-end">
+        <div class="saved" aria-hidden="true">
+          <span class="saved-bar">{Array.from({ length: SAVE_BLOCKS }, () => <i />)}</span>
+          <span class="saved-label">Memória salva.</span>
+        </div>
 
-      <a class="button" href={SITE.channelUrl} target="_blank" rel="noopener">
-        <span class="play" aria-hidden="true">▶</span> Assistir no YouTube
-      </a>
-    </footer>
+        {
+          (older || newer) && (
+            <nav class="post-nav" aria-label="Outros textos">
+              {older && (
+                <a class="post-nav-link is-older" href={postUrl(older)}>
+                  <span class="post-nav-dir">← Memória anterior</span>
+                  <span class="post-nav-title">{older.data.title}</span>
+                </a>
+              )}
+              {newer && (
+                <a class="post-nav-link is-newer" href={postUrl(newer)}>
+                  <span class="post-nav-dir">Próxima memória →</span>
+                  <span class="post-nav-title">{newer.data.title}</span>
+                </a>
+              )}
+            </nav>
+          )
+        }
+
+        <a class="button" href={SITE.channelUrl} target="_blank" rel="noopener">
+          <span class="play" aria-hidden="true">▶</span> Assistir no YouTube
+        </a>
+      </footer>
+    </div>
   </main>
 </Base>

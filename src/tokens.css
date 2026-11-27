@@ -19,6 +19,13 @@
   --led: #e5483f;        /* power light */
   --led-off: #5b3634;
 
+  /* Reading pages: Momo's E-ink theme, the colours of an e-reader's screen. */
+  --reader-paper: #d6d4cc;
+  --reader-card: #dddbd3;
+  --reader-ink: #2b2a27;
+  --reader-muted: #5a5852;
+  --reader-screen: #cdcbc3;
+
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   /* Google Fonts calls it "VT323"; Remotion's loader registers it as "VTThreeTwoThree". */
   --pixel: "VT323", "VTThreeTwoThree", ui-monospace, "SFMono-Regular", Menlo, monospace;
