@@ -1,0 +1,25 @@
+/*
+ * type & play
+ * Writing (serif) meets play (pixel), in the turquoise of a handheld console.
+ * Flat, solid colours: no gradients, no shadows, no transparency.
+ * Thick ink borders do the work that depth would.
+ */
+:root {
+  --shell: #1fa9b1;      /* turquoise shell */
+  --ink: #0e2326;        /* text and lines */
+  --paper: #f6f1e4;      /* highlights */
+  --bezel: #3a3e48;      /* screen frame */
+  --bezel-text: #b9bec7;
+  --screen: #dfe0cf;     /* the LCD, where the words go */
+  --screen-off: #8e9283; /* the LCD before it lights up */
+  --screen-line: #bfc1ad;
+  --muted-ink: #4d5650;  /* secondary text on the screen */
+  --key: #8a817b;        /* rubber keys */
+  --key-deep: #5d5651;
+  --led: #e5483f;        /* power light */
+  --led-off: #5b3634;
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  /* Google Fonts calls it "VT323"; Remotion's loader registers it as "VTThreeTwoThree". */
+  --pixel: "VT323", "VTThreeTwoThree", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}

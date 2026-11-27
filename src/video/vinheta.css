@@ -1,0 +1,73 @@
+.v-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--shell);
+}
+
+.v-device { transform-origin: center center; }
+
+.v-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--ink);
+}
+
+.v-hud {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 1.05rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+
+.v-word {
+  margin: 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 1.95rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+.v-word .w-type { font-style: italic; font-weight: 400; }
+.v-word .w-amp { font-weight: 300; }
+.v-word .w-play {
+  font-family: var(--pixel);
+  font-size: 2.45rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.v-caret {
+  display: inline-block;
+  width: 0.36em;
+  height: 0.8em;
+  margin-left: 0.08em;
+  vertical-align: -0.06em;
+  background: var(--ink);
+}
+
+.v-save {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+.v-bar { display: flex; gap: 4px; }
+.v-bar i {
+  width: 16px;
+  height: 12px;
+  border: 2px solid var(--ink);
+}
+.v-bar i.is-full { background: var(--ink); }
+.v-label {
+  font-family: var(--pixel);
+  font-size: 1.05rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

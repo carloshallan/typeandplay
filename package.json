@@ -1,0 +1,31 @@
+{
+  "name": "typeandplay",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "studio": "remotion studio src/video/index.ts",
+    "vinheta": "remotion render src/video/index.ts Vinheta out/vinheta.mp4",
+    "capa": "remotion still src/video/index.ts Capa public/marca/capa-youtube.png",
+    "logo": "remotion still src/video/index.ts Logo public/marca/logo-youtube.png",
+    "marca": "npm run capa && npm run logo"
+  },
+  "dependencies": {
+    "@remotion/google-fonts": "4.0.547",
+    "@remotion/player": "4.0.547",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.547"
+  },
+  "devDependencies": {
+    "@remotion/cli": "4.0.547",
+    "@types/react": "19.3.3",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "5.1.1",
+    "typescript": "5.9.3",
+    "vite": "7.2.4"
+  }
+}

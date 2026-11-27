@@ -1,0 +1,248 @@
+/* Channel art. Same rules as the site: solid colours, thick ink borders. */
+
+/* ---------- Banner, 2560×1440 ---------- */
+.capa {
+  background: var(--shell);
+  color: var(--ink);
+  font-family: var(--serif);
+}
+
+/* Seen only on TVs (above the 423 px band). */
+.capa-seam {
+  position: absolute;
+  top: 150px;
+  left: 140px;
+  right: 140px;
+  height: 12px;
+  background: var(--ink);
+}
+
+/* Band every computer shows: y 508 to 931. Centre line at 720. */
+.capa-bezel {
+  position: absolute;
+  left: 50%;
+  top: 720px;
+  width: 1500px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  padding: 30px 60px 30px 150px;
+  background: var(--bezel);
+  border: 12px solid var(--ink);
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+
+.capa-power {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  width: 90px;
+  transform: translateY(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bezel-text);
+}
+.capa-led {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--led);
+  border: 6px solid var(--ink);
+}
+
+.capa-screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 40px 24px;
+  background: var(--screen);
+  border: 10px solid var(--ink);
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.capa-hud {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+.capa-hud span:first-child { color: var(--ink); }
+
+.capa-word {
+  margin: 0;
+  text-align: center;
+  font-size: 128px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.capa-word .w-type { font-style: italic; font-weight: 400; }
+.capa-word .w-amp { font-weight: 300; }
+.capa-word .w-play {
+  font-family: var(--pixel);
+  font-size: 158px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.capa-caret {
+  display: inline-block;
+  width: 52px;
+  height: 104px;
+  margin-left: 10px;
+  vertical-align: -8px;
+  background: var(--ink);
+}
+
+.capa-line {
+  margin: 0;
+  text-align: center;
+  font-family: var(--pixel);
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+/* Sides of the band: seen on computers, cut on phones. */
+.capa-dpad {
+  position: absolute;
+  left: 200px;
+  top: 720px;
+  width: 300px;
+  height: 300px;
+  transform: translateY(-50%);
+  overflow: visible;
+}
+.capa-dpad .cross {
+  fill: var(--key);
+  stroke: var(--ink);
+  stroke-width: 3.6;
+  stroke-linejoin: round;
+}
+.capa-dpad .dimple { fill: var(--key-deep); stroke: var(--ink); stroke-width: 2.4; }
+.capa-dpad .arrow { fill: var(--key-deep); }
+
+.capa-btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--key);
+  border: 12px solid var(--ink);
+  box-sizing: border-box;
+  font-family: var(--serif);
+  font-size: 60px;
+  font-weight: 500;
+  color: var(--key-deep);
+}
+.capa-btn.is-b { left: 2110px; top: 700px; }
+.capa-btn.is-a { left: 2300px; top: 590px; }
+
+/* Seen only on TVs (below the band). */
+.capa-pills {
+  position: absolute;
+  left: 50%;
+  top: 1080px;
+  display: flex;
+  gap: 60px;
+  transform: translateX(-50%);
+}
+.capa-pills i {
+  width: 130px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--key);
+  border: 10px solid var(--ink);
+  transform: rotate(-24deg);
+}
+
+.capa-speaker {
+  position: absolute;
+  right: 190px;
+  bottom: 150px;
+  display: grid;
+  grid-template-columns: repeat(6, 26px);
+  gap: 22px;
+}
+.capa-speaker i {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.capa-speaker i:nth-child(12n + 7),
+.capa-speaker i:nth-child(12n + 8),
+.capa-speaker i:nth-child(12n + 9),
+.capa-speaker i:nth-child(12n + 10),
+.capa-speaker i:nth-child(12n + 11),
+.capa-speaker i:nth-child(12n + 12) { transform: translateX(24px); }
+
+/* ---------- Channel picture, 800×800 ---------- */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--shell);
+}
+
+.logo-bezel {
+  position: relative;
+  width: 520px;
+  height: 470px;
+  padding: 40px 50px 50px 86px;
+  background: var(--bezel);
+  border: 20px solid var(--ink);
+  border-radius: 48px 48px 64px 64px;
+  box-sizing: border-box;
+}
+
+.logo-led {
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--led);
+  border: 7px solid var(--ink);
+  box-sizing: border-box;
+}
+
+.logo-screen {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--screen);
+  border: 16px solid var(--ink);
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.logo-mark { width: 250px; height: 250px; }
+.logo-cursor {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.logo-play {
+  fill: var(--ink);
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}

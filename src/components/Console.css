@@ -1,0 +1,162 @@
+/* The handheld: drawn flat, every part outlined in ink. */
+.device {
+  position: relative;
+  width: 410px;
+  padding: 44px 22px 34px;
+  background: var(--shell);
+  border: 4px solid var(--ink);
+  border-radius: 22px 22px 30px 30px;
+  box-sizing: border-box;
+  color: var(--ink);
+}
+.device *,
+.device *::before,
+.device *::after { box-sizing: border-box; }
+
+/* The seam along the top edge. */
+.device::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  right: 22px;
+  height: 3px;
+  background: var(--ink);
+}
+
+.bezel {
+  position: relative;
+  padding: 20px 48px 14px;
+  background: var(--bezel);
+  border: 3px solid var(--ink);
+  border-radius: 12px 12px 18px 18px;
+}
+
+.power {
+  position: absolute;
+  left: 5px;
+  top: 64px;
+  width: 32px;
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 0.68rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--bezel-text);
+}
+.led {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--led);
+  border: 2px solid var(--ink);
+}
+.led.is-off { background: var(--led-off); }
+
+.screen {
+  aspect-ratio: 10 / 9.4;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  background: var(--screen);
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  font-family: var(--pixel);
+  overflow: hidden;
+}
+
+.bezel-brand {
+  margin: 12px 0 0;
+  text-align: center;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+.bezel-brand .w-type { font-style: italic; font-weight: 420; }
+.bezel-brand .w-amp { font-weight: 300; }
+.bezel-brand .w-play {
+  font-family: var(--pixel);
+  font-size: 1.55rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Cross pad, B and A. */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 34px 6px 0;
+}
+
+.dpad { width: 96px; height: 96px; overflow: visible; }
+.dpad .cross {
+  fill: var(--key);
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.dpad .dimple { fill: var(--key-deep); stroke: var(--ink); stroke-width: 2; }
+.dpad .arrow { fill: var(--key-deep); }
+
+.ab { display: flex; align-items: flex-start; gap: 16px; }
+.btn {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--key);
+  border: 3px solid var(--ink);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--key-deep);
+}
+.btn.is-b { margin-top: 26px; }
+.btn.is-pressed {
+  background: var(--key-deep);
+  color: var(--key);
+  transform: translateY(3px) scale(0.94);
+}
+
+/* Select, start and the speaker. */
+.lower {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 26px 6px 0 64px;
+}
+.pills { display: flex; gap: 16px; margin-bottom: 26px; }
+.pills i {
+  width: 38px;
+  height: 13px;
+  border-radius: 999px;
+  background: var(--key);
+  border: 3px solid var(--ink);
+  transform: rotate(-24deg);
+}
+
+.speaker {
+  display: grid;
+  grid-template-columns: repeat(6, 7px);
+  gap: 6px;
+}
+.speaker i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.speaker i:nth-child(12n + 7),
+.speaker i:nth-child(12n + 8),
+.speaker i:nth-child(12n + 9),
+.speaker i:nth-child(12n + 10),
+.speaker i:nth-child(12n + 11),
+.speaker i:nth-child(12n + 12) { transform: translateX(6px); }

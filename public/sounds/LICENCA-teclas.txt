@@ -1,0 +1,36 @@
+Pack downloaded from OpenGameArt
+----------------------------------------
+
+"Typewriter Sounds"
+
+Submitted by: Cassie-OrbitGames
+
+You can find this pack online at: https://opengameart.org/content/typewriter-sounds
+
+
+License
+-------
+
+Creative Commons 0: http://creativecommons.org/publicdomain/zero/1.0/
+
+CC0 places the work in the public domain: no attribution is required. The
+credit shown in Momo (Settings > Sounds) is given anyway, because the people
+who record these deserve it.
+
+
+Sounds in this Pack
+-------------------
+
+  * typewriter1.wav
+  * typewriter2.wav
+  * typewriter3.wav
+  * typewriter4.wav
+  * typewriter5.wav
+  * typewriter6.wav
+  * typewriter7.wav
+  * typewriter8.wav
+
+All eight are single key strikes. The pack has no separate spacebar or
+carriage-return recording, so Momo uses the first seven for the key zones and
+reserves the eighth for the wide keys (space, Tab, Backspace, Enter). That
+split is a choice, not a property of the recordings.
