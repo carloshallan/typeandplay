@@ -167,7 +167,12 @@ a { color: inherit; }
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
+/* The highlight sits under the title's other lines, so descenders above it (the g in
+   "Alguns jogos") stay on top instead of being covered by the paper. */
+.hero h1 { isolation: isolate; }
 .hero h1 em {
+  position: relative;
+  z-index: -1;
   font-style: italic;
   font-weight: 340;
   padding: 0 0.12em;
