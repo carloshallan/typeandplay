@@ -21,6 +21,7 @@ const posts = defineCollection({
       date: z.coerce.date(),
       cover: image().optional(),
       coverAlt: z.string().optional(),
+      categories: z.array(z.string()).default([]),
       game: z.string().optional(),
       platform: z.string().optional(),
       year: z.coerce.string().optional(),

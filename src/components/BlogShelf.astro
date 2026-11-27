@@ -1,0 +1,88 @@
+---
+import PostSlots from "./PostSlots.astro"
+import { type Category, type Post } from "../lib/posts"
+import { withBase } from "../lib/site"
+
+interface Props {
+  title: string
+  posts: Post[]
+  categories: Category[]
+  /** Slug of the category this page shows, if any. */
+  active?: string
+}
+
+const { title, posts, categories, active } = Astro.props
+const saved = `${posts.length} ${posts.length === 1 ? "memória salva" : "memórias salvas"}`
+---
+
+<main class="shelf is-page">
+  <div class="shelf-head">
+    <h1 class="shelf-title">{title}</h1>
+    <p class="hud">{saved}</p>
+  </div>
+
+  <div class="blog-tools">
+    <form class="blog-search" role="search" onsubmit="return false">
+      <label for="blog-search-input">Buscar</label>
+      <input
+        id="blog-search-input"
+        type="search"
+        name="q"
+        placeholder="Um jogo, um console, uma palavra"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </form>
+
+    {
+      categories.length > 0 && (
+        <nav class="category-chips" aria-label="Categorias">
+          <a href={withBase("/blog/")} aria-current={active ? undefined : "page"}>
+            Todas
+          </a>
+          {categories.map(category => (
+            <a
+              href={withBase(`/blog/category/${category.slug}/`)}
+              aria-current={category.slug === active ? "page" : undefined}
+            >
+              {category.name} <span>{category.count}</span>
+            </a>
+          ))}
+        </nav>
+      )
+    }
+  </div>
+
+  <PostSlots posts={posts} />
+  <p class="blog-search-empty" id="blog-search-empty" hidden>Nenhuma memória com essas palavras.</p>
+</main>
+
+<script>
+  // Filters the posts on this page as you type; ?q= keeps the search in the address.
+  const input = document.querySelector<HTMLInputElement>("#blog-search-input")
+  const empty = document.querySelector<HTMLElement>("#blog-search-empty")
+  const items = [...document.querySelectorAll<HTMLElement>("[data-search]")]
+  const normalize = (text: string) => text.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+
+  function apply() {
+    if (!input || !empty) return
+    const terms = normalize(input.value).split(/\s+/).filter(Boolean)
+    let shown = 0
+    for (const item of items) {
+      const match = terms.every(term => item.dataset.search?.includes(term))
+      item.hidden = !match
+      if (match) shown += 1
+    }
+    empty.hidden = shown > 0 || items.length === 0
+    const url = new URL(location.href)
+    if (input.value) url.searchParams.set("q", input.value)
+    else url.searchParams.delete("q")
+    history.replaceState(null, "", url)
+  }
+
+  if (input) {
+    input.value = new URLSearchParams(location.search).get("q") ?? ""
+    input.addEventListener("input", apply)
+    apply()
+  }
+</script>

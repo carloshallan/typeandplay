@@ -12,12 +12,15 @@
   padding-bottom: 0;
 }
 
+/* Titles wear the logo's "type": Fraunces italic. */
 .post-head h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 5.6vw, 3.7rem);
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-style: italic;
   font-weight: 420;
-  line-height: 1.07;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
@@ -29,12 +32,26 @@
   text-wrap: pretty;
 }
 
+.post-byline {
+  margin: 18px 0 0;
+  font-size: 1.1rem;
+}
+.post-byline a {
+  font-family: var(--pixel);
+  font-size: 1.25em;
+  letter-spacing: 0.06em;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.post-head .category-chips { margin-top: 16px; }
+
 .post-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 16px;
-  margin: 22px 0 0;
+  margin: 14px 0 0;
   font-family: var(--pixel);
   font-size: 1.25rem;
   line-height: 1.2;
@@ -57,6 +74,9 @@
   height: auto;
   aspect-ratio: 16 / 7;
   object-fit: cover;
+  /* Full width, but never taller than most of the window: wide screens crop top and bottom. */
+  max-height: min(70vh, 640px);
+  object-position: center;
   margin: 40px 0 0;
   border: 0;
   border-top: 3px solid var(--ink);
@@ -249,6 +269,31 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.saved-label-saving { display: none; }
+
+/* The save, played when the bar scrolls into view (the script arms it; without
+   the script, or with reduced motion, the bar is simply full). Like the intro:
+   the blocks fill one by one, then "Memória salva." blinks. */
+.saved.is-armed .saved-bar i { background: transparent; }
+.saved.is-armed:not(.is-saved) .saved-label-done { display: none; }
+.saved.is-armed:not(.is-saved) .saved-label-saving { display: inline; }
+.saved-label-saving::after {
+  content: "...";
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  animation: saved-dots 0.9s steps(4, end) infinite;
+}
+.saved.is-saving .saved-bar i {
+  animation: saved-fill 1ms forwards;
+  animation-delay: calc(var(--i) * 120ms + 200ms);
+}
+.saved.is-saved .saved-label-done { animation: saved-blink 0.36s steps(1, end) 3; }
+
+@keyframes saved-fill { to { background: var(--ink); } }
+@keyframes saved-dots { to { width: 4ch; } }
+@keyframes saved-blink { 50% { visibility: hidden; } }
 
 .post-nav {
   display: grid;

@@ -3,7 +3,7 @@ import { render } from "astro:content"
 import { Image, getImage } from "astro:assets"
 import Base from "../../layouts/Base.astro"
 import YouTube from "../../components/YouTube.astro"
-import { formatDate, getPosts, padNumber, postUrl, type Post } from "../../lib/posts"
+import { categoryUrl, formatDate, getPosts, padNumber, postUrl, type Post } from "../../lib/posts"
 import { SITE } from "../../lib/site"
 import "../../styles/post.css"
 
@@ -22,7 +22,7 @@ interface Props {
 }
 
 const { post, newer, older } = Astro.props
-const { title, description, date, cover, coverAlt, game, platform, year, draft } = post.data
+const { title, description, date, cover, coverAlt, categories, game, platform, year, draft } = post.data
 const { Content } = await render(post)
 const shareImage = cover ? (await getImage({ src: cover, width: 1200, format: "jpg" })).src : undefined
 const cartridge = [game, platform, year].filter(Boolean).join(" · ")
@@ -38,10 +38,20 @@ const SAVE_BLOCKS = 10
       </p>
       <h1>{title}</h1>
       {description && <p class="post-lede">{description}</p>}
+      <p class="post-byline">
+        por <a href={SITE.author.url} rel="author">{SITE.author.name}</a>
+      </p>
       <p class="post-meta">
         {cartridge && <span class="cartridge">{cartridge}</span>}
         <span>{post.minutes} min de leitura</span>
       </p>
+      {
+        categories.length > 0 && (
+          <nav class="category-chips" aria-label="Categorias deste texto">
+            {categories.map(name => <a href={categoryUrl(name)}>{name}</a>)}
+          </nav>
+        )
+      }
     </header>
 
     {/* Covers are 1600×700 and run the full width of the window (see AGENTS.md). */}
@@ -64,9 +74,12 @@ const SAVE_BLOCKS = 10
       </div>
 
       <footer class="post-end">
-        <div class="saved" aria-hidden="true">
-          <span class="saved-bar">{Array.from({ length: SAVE_BLOCKS }, () => <i />)}</span>
-          <span class="saved-label">Memória salva.</span>
+        <div class="saved" data-save-blocks={SAVE_BLOCKS} aria-hidden="true">
+          <span class="saved-bar">{Array.from({ length: SAVE_BLOCKS }, (_, i) => <i style={`--i: ${i}`} />)}</span>
+          <span class="saved-label">
+            <span class="saved-label-saving">Salvando memória</span>
+            <span class="saved-label-done">Memória salva.</span>
+          </span>
         </div>
 
         {
@@ -95,3 +108,24 @@ const SAVE_BLOCKS = 10
     </div>
   </main>
 </Base>
+
+<script>
+  // Plays the save once, when the reader reaches the end of the text.
+  const save = document.querySelector<HTMLElement>(".saved")
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+  if (save && !still && "IntersectionObserver" in window) {
+    const blocks = Number(save.dataset.saveBlocks ?? 10)
+    save.classList.add("is-armed")
+    const observer = new IntersectionObserver(
+      entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return
+        observer.disconnect()
+        save.classList.add("is-saving")
+        window.setTimeout(() => save.classList.add("is-saved"), blocks * 120 + 450)
+      },
+      { threshold: 1 }
+    )
+    observer.observe(save)
+  }
+</script>

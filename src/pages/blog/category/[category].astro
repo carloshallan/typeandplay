@@ -1,0 +1,25 @@
+---
+import Base from "../../../layouts/Base.astro"
+import BlogShelf from "../../../components/BlogShelf.astro"
+import { categorySlug, getCategories, getPosts, type Category } from "../../../lib/posts"
+
+export async function getStaticPaths() {
+  const posts = await getPosts()
+  return getCategories(posts).map(category => ({
+    params: { category: category.slug },
+    props: { category }
+  }))
+}
+
+interface Props {
+  category: Category
+}
+
+const { category } = Astro.props
+const all = await getPosts()
+const posts = all.filter(post => post.data.categories.some(name => categorySlug(name) === category.slug))
+---
+
+<Base tone="reader" title={category.name} description={`Textos do type & play em ${category.name}.`}>
+  <BlogShelf title={category.name} posts={posts} categories={getCategories(all)} active={category.slug} />
+</Base>

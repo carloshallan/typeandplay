@@ -45,3 +45,40 @@ const DATE_FORMAT = new Intl.DateTimeFormat("pt-BR", {
 export const formatDate = (date: Date) => DATE_FORMAT.format(date)
 export const postUrl = (post: PostEntry) => withBase(`/blog/${post.id}/`)
 export const padNumber = (n: number) => String(n).padStart(2, "0")
+
+/** Lower case, no accents: what search and category addresses compare. */
+export const normalize = (text: string) =>
+  text.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+
+export const categorySlug = (name: string) =>
+  normalize(name).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+export const categoryUrl = (name: string) => withBase(`/blog/category/${categorySlug(name)}/`)
+
+export type Category = { name: string; slug: string; count: number }
+
+/** Every category in use, alphabetical, with how many posts carry it. */
+export function getCategories(posts: Post[]): Category[] {
+  const counts = new Map<string, Category>()
+  for (const post of posts) {
+    for (const name of post.data.categories) {
+      const slug = categorySlug(name)
+      const known = counts.get(slug)
+      if (known) known.count += 1
+      else counts.set(slug, { name, slug, count: 1 })
+    }
+  }
+  return [...counts.values()].sort((a, b) => a.name.localeCompare(b.name, "pt-BR"))
+}
+
+/** All of a post's words in one normalised string, for the blog's search box. */
+export function searchText(post: PostEntry) {
+  const { title, description, game, platform, categories } = post.data
+  const body = (post.body ?? "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[#>*_`~-]/g, " ")
+  return normalize([title, description, game, platform, ...categories, body].filter(Boolean).join(" "))
+    .replace(/\s+/g, " ")
+    .trim()
+}

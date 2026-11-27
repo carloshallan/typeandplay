@@ -4,6 +4,7 @@ description: Um modelo para copiar. Ele só aparece no npm run dev, porque está
 date: 2026-11-27
 cover: ./cover.png
 coverAlt: A tela do console do type & play, com o nome do canal e a frase "Alguns jogos salvam mais do que o progresso."
+categories: [Guia]
 game: Nome do jogo
 platform: Console
 year: 2000
@@ -20,6 +21,7 @@ Entre os dois `---` do começo do arquivo ficam os dados do texto:
 - `description`: uma frase que aparece na lista de textos e quando alguém compartilha o link.
 - `date`: a data, no formato ano-mês-dia.
 - `cover` e `coverAlt`: a imagem de capa e a descrição dela, para quem usa leitor de tela. A capa é sempre **1600×700 px** e ocupa a largura inteira da janela. As duas são opcionais.
+- `categories`: as categorias do texto, entre colchetes e separadas por vírgula, como `[Memórias, Nintendinho]`. Cada uma ganha uma página no blog. Opcional.
 - `game`, `platform` e `year`: o jogo de que o texto fala. Aparecem juntos numa etiqueta de cartucho. Opcionais.
 - `draft: true`: guarda o texto como rascunho. Ele aparece no `npm run dev`, mas não vai para o site. Apague a linha quando for publicar.
 

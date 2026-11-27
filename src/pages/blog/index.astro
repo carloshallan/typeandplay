@@ -1,17 +1,11 @@
 ---
 import Base from "../../layouts/Base.astro"
-import PostSlots from "../../components/PostSlots.astro"
-import { getPosts } from "../../lib/posts"
+import BlogShelf from "../../components/BlogShelf.astro"
+import { getCategories, getPosts } from "../../lib/posts"
 
 const posts = await getPosts()
 ---
 
 <Base tone="reader" title="Blog" description="O blog do type & play: todos os textos, do mais novo ao mais antigo.">
-  <main class="shelf is-page">
-    <div class="shelf-head">
-      <h1 class="shelf-title">Blog</h1>
-      <p class="hud">{posts.length} {posts.length === 1 ? "memória salva" : "memórias salvas"}</p>
-    </div>
-    <PostSlots posts={posts} />
-  </main>
+  <BlogShelf title="Blog" posts={posts} categories={getCategories(posts)} />
 </Base>
