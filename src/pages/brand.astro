@@ -1,0 +1,77 @@
+---
+import Base from "../layouts/Base.astro"
+import "../styles/tools.css"
+
+const BANNERS = [
+  { language: "Português", src: "/brand/youtube-banner-pt.png", file: "type-and-play-capa.png" },
+  { language: "English", src: "/brand/youtube-banner-en.png", file: "type-and-play-banner.png" }
+]
+const LOGO = "/brand/youtube-logo.png"
+const LOGO_SIZES = [160, 98, 40]
+---
+
+<Base title="Marca do canal" tone="paper" noindex>
+  <main class="tool">
+    <div class="tool-head">
+      <h1>Marca do canal</h1>
+      <label class="tool-toggle">
+        <input type="checkbox" id="show-crop" checked />
+        Mostrar as áreas de corte
+      </label>
+    </div>
+
+    {
+      BANNERS.map(banner => (
+        <section class="tool-block">
+          <div class="tool-title">
+            <h2>Capa · {banner.language}</h2>
+            <span>2560 × 1440 · PNG</span>
+          </div>
+          <div class="banner-preview">
+            <img src={banner.src} alt={`Capa do canal type & play, em ${banner.language.toLowerCase()}`} />
+            <span class="crop-area is-desktop">
+              <b>Computador</b>
+            </span>
+            <span class="crop-area is-all">
+              <b>Todos os aparelhos</b>
+            </span>
+          </div>
+          <div class="tool-actions">
+            <a class="tool-button" href={banner.src} download={banner.file}>
+              Baixar a capa
+            </a>
+          </div>
+        </section>
+      ))
+    }
+
+    <p class="tool-note">
+      Na TV aparece a imagem inteira. No computador, só a faixa do meio. No celular, só o retângulo central, que é
+      onde ficam o nome e a frase.
+    </p>
+
+    <section class="tool-block">
+      <div class="tool-title">
+        <h2>Foto do canal</h2>
+        <span>800 × 800 · PNG</span>
+      </div>
+      <div class="logo-preview">
+        <img class="logo-square" src={LOGO} alt="Logo do type & play" />
+        <div class="logo-sizes">
+          {LOGO_SIZES.map(size => <img class="logo-round" src={LOGO} alt="" width={size} height={size} />)}
+        </div>
+      </div>
+      <div class="tool-actions">
+        <a class="tool-button" href={LOGO} download="type-and-play-logo.png">Baixar o logo</a>
+      </div>
+      <p class="tool-note">
+        O YouTube recorta a foto em círculo; acima, como ela aparece no canal, na busca e nos comentários.
+      </p>
+    </section>
+
+    <p class="tool-note">
+      Para trocar no canal: YouTube Studio › Personalização › Branding. Para gerar as imagens de novo depois de mudar
+      o desenho: <code>npm run brand</code>
+    </p>
+  </main>
+</Base>

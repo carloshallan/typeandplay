@@ -1,0 +1,8 @@
+export const SITE = {
+  name: "type & play",
+  description:
+    "Ensaios em vídeo e em texto sobre os jogos que atravessaram a minha vida: a história de cada um, as lembranças que ficaram presas neles e as pessoas que estavam na sala enquanto eu jogava.",
+  channelUrl: "https://www.youtube.com/@typeandplay"
+} as const
+
+export const SUBSCRIBE_URL = `${SITE.channelUrl}?sub_confirmation=1`

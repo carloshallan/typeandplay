@@ -1,9 +1,24 @@
+import { SITE } from "../lib/site"
 import "./SaveScreen.css"
 
-export const CHANNEL_URL = "https://www.youtube.com/@typeandplay"
+export type LatestPost = { title: string; href: string }
 
-/** The save menu on the console's screen: the channel is slot 01. */
-export function SaveScreen() {
+function EmptySlot({ n, title, meta }: { n: string; title: string; meta: string }) {
+  return (
+    <li>
+      <div className="slot is-empty">
+        <span className="slot-n">{n}</span>
+        <span className="slot-body">
+          <span className="slot-title">{title}</span>
+          <span className="slot-meta">{meta}</span>
+        </span>
+      </div>
+    </li>
+  )
+}
+
+/** The save menu on the console's screen: the channel is slot 01, the newest post slot 02. */
+export function SaveScreen({ latest }: { latest?: LatestPost }) {
   return (
     <>
       <p className="save-head">
@@ -12,7 +27,7 @@ export function SaveScreen() {
       </p>
       <ol className="slots">
         <li>
-          <a className="slot is-current" href={CHANNEL_URL} target="_blank" rel="noopener">
+          <a className="slot is-current" href={SITE.channelUrl} target="_blank" rel="noopener">
             <span className="slot-n">01</span>
             <span className="slot-body">
               <span className="slot-title">type &amp; play</span>
@@ -23,24 +38,23 @@ export function SaveScreen() {
             </span>
           </a>
         </li>
-        <li>
-          <div className="slot is-empty">
-            <span className="slot-n">02</span>
-            <span className="slot-body">
-              <span className="slot-title">Espaço livre</span>
-              <span className="slot-meta">O próximo vídeo</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div className="slot is-empty">
-            <span className="slot-n">03</span>
-            <span className="slot-body">
-              <span className="slot-title">Espaço livre</span>
-              <span className="slot-meta">Ainda não jogado</span>
-            </span>
-          </div>
-        </li>
+        {latest ? (
+          <li>
+            <a className="slot" href={latest.href}>
+              <span className="slot-n">02</span>
+              <span className="slot-body">
+                <span className="slot-title">{latest.title}</span>
+                <span className="slot-meta">Texto mais recente</span>
+              </span>
+              <span className="slot-go" aria-hidden="true">
+                ▶
+              </span>
+            </a>
+          </li>
+        ) : (
+          <EmptySlot n="02" title="Espaço livre" meta="O primeiro texto" />
+        )}
+        <EmptySlot n="03" title="Espaço livre" meta="O próximo vídeo" />
       </ol>
       <p className="save-foot">Não desligue o console enquanto a memória é gravada.</p>
     </>

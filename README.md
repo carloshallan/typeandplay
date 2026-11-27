@@ -1,57 +1,97 @@
 # type & play
 
-Site do canal [type & play](https://www.youtube.com/@typeandplay): ensaios em vídeo sobre os jogos que atravessaram a minha vida.
+Blog and home of the [type & play](https://www.youtube.com/@typeandplay) channel: video and written essays about the games that went through my life. Built with Astro, published to GitHub Pages at https://typeandplay.github.io.
 
-## Identidade
+## Writing a post
 
-- **Ideia:** escrever e jogar. A serifa (Fraunces, em itálico no "type") é a escrita; a fonte de pixel (VT323, no "PLAY") é o jogo.
-- **Cor:** o turquesa de um portátil de cartucho, chapado.
-- **Regras:** cores sólidas, sem degradê, sem sombra, sem transparência. Bordas grossas de tinta (3 a 4 px) fazem o papel da profundidade.
-- **Elementos:** o console desenhado plano, a tela de salvar jogo, o cursor piscando.
-- Nada de nomes, logos ou sons da Nintendo: a inspiração é a cor e o clima.
+1. Create a folder in `src/content/posts/`, named the way the address should read: `src/content/posts/my-post/` becomes `/posts/my-post/`. Lowercase, hyphens, no accents.
+2. Write `index.md` inside it and put the images next to it.
+3. Commit and push to `main`. The `Deploy to GitHub Pages` workflow builds and publishes the site in a couple of minutes.
 
-| Token | Cor | Uso |
+Front matter:
+
+```yaml
+---
+title: O título
+description: Uma frase para a lista de textos e para o link compartilhado.
+date: 2026-11-27
+cover: ./capa.jpg          # optional
+coverAlt: O que a imagem mostra   # optional
+game: Nome do jogo         # optional, shown as a cartridge label with platform and year
+platform: Game Boy Color   # optional
+year: 2000                 # optional
+draft: true                # optional: shows in `npm run dev` only
+---
+```
+
+Images: `![description](./photo.jpg)`. Astro resizes them at build time, so originals are fine.
+
+Videos: rename the file to `index.mdx` and write `<YouTube id="VIDEO_ID" />` on its own line.
+
+`src/content/posts/how-to-write/` is a draft with every option in use. It shows in `npm run dev` and never reaches the site.
+
+## Identity
+
+- **Idea:** writing and playing. The serif (Fraunces, italic in "type") is the writing; the pixel face (VT323, in "PLAY") is the game.
+- **Colour:** the flat turquoise of a cartridge handheld.
+- **Rules:** solid colours; no gradients, shadows or transparency. Thick ink borders (3 to 4 px) do the work of depth, on all four sides.
+- **Elements:** the console drawn flat, the save screen, the blinking caret. Posts are "memórias salvas" (save slots).
+- No Nintendo names, logos or sounds: the inspiration is the colour and the mood.
+
+| Token | Colour | Use |
 | --- | --- | --- |
-| `--shell` | `#1fa9b1` | fundo, carcaça |
-| `--ink` | `#0e2326` | texto, bordas |
-| `--paper` | `#f6f1e4` | destaques |
-| `--bezel` | `#3a3e48` | moldura da tela |
-| `--screen` | `#dfe0cf` | a tela (LCD) |
-| `--key` | `#8a817b` | botões |
-| `--led` | `#e5483f` | luz de ligado |
+| `--shell` | `#1fa9b1` | background, console shell |
+| `--ink` | `#0e2326` | text, borders |
+| `--paper` | `#f6f1e4` | reading pages, highlights |
+| `--bezel` | `#3a3e48` | screen bezel |
+| `--screen` | `#dfe0cf` | the LCD, quotes |
+| `--key` | `#8a817b` | buttons |
+| `--led` | `#e5483f` | power light |
 
-Os tokens ficam em `src/tokens.css`. O console é um componente só (`src/components/Console.tsx`), usado no site e na vinheta.
+Tokens live in `src/tokens.css`. The console is one React component (`src/components/Console.tsx`), used on the site, in the intro and nowhere else redrawn.
 
-## Comandos
+## Commands
 
 ```sh
 npm install
-npm run dev        # site em http://localhost:5173, vinheta em /vinheta.html, marca em /marca.html
-npm run build      # site estático em dist/
-npm run studio     # Remotion Studio, para editar a vinheta quadro a quadro
-npm run vinheta    # gera out/vinheta.mp4 (1920×1080, 60 fps, com som)
-npm run marca      # gera a capa (2560×1440) e o logo (800×800) em public/marca/
+npm run dev        # http://localhost:4321 (drafts included)
+npm run build      # type-check and build the static site into dist/
+npm run studio     # Remotion Studio, to edit the intro frame by frame
+npm run intro      # out/intro-pt.mp4 and out/intro-en.mp4 (1920×1080, 60 fps, with sound)
+npm run brand      # channel banners (pt, en) and picture in public/brand/
 ```
 
-Se o `npm run vinheta` (ou `capa`, `logo`) reclamar de "Target closed", use o Chrome do Mac:
+Renders use the installed Google Chrome when there is one (`remotion.config.ts`), because Remotion's own headless Chrome closes on start ("Target closed") on this Mac.
 
-```sh
-npm run vinheta -- --browser-executable="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+## Layout
+
+```
+src/
+  content/posts/    posts, one folder each
+  content.config.ts post front matter schema
+  pages/            routes: /, /posts/, /posts/<slug>/, /rss.xml, /intro/, /brand/, 404
+  layouts/Base.astro
+  components/       Console, SaveScreen, PostSlots, YouTube embed, intro player
+  styles/           site.css, post.css, tools.css (workshop pages)
+  video/            Remotion: the intro, fonts, root
+  brand/            Remotion stills: YouTube banner and picture
 ```
 
-## Vinheta
+## Intro
 
-`src/video/Vinheta.tsx`. Os tempos estão em segundos (no objeto `T`), então mudar o fps não muda a duração de nada.
+`src/video/Intro.tsx`, in Portuguese and English (`language` prop; compositions `IntroPt` and `IntroEn`). Timings are in seconds (the `T` object), so changing the frame rate keeps every duration.
 
-- O console sobe, o LED acende, a tela liga.
-- "type & PLAY" é digitado com o som da máquina de escrever elétrica do Momo, uma tecla por letra.
-- O botão A é apertado e a memória é salva, com um som de ligar 8-bit original (`public/sounds/ligar.wav`, sintetizado).
+- The console rises, the LED lights, the screen turns on.
+- "type & PLAY" is typed with Momo's electric typewriter, one key per letter.
+- The A button is pressed and the memory is saved, closing on an original 8-bit power-on chime (`public/sounds/power-on.wav`, synthesised).
 
-Os sons das teclas são CC0 (Cassie-OrbitGames, OpenGameArt); a licença está em `public/sounds/LICENCA-teclas.txt`.
+`/intro/` plays it in the browser with a language switch.
 
-## Marca do canal
+The key sounds are CC0 (Cassie-OrbitGames, OpenGameArt); see `public/sounds/LICENSE-typewriter.txt`.
 
-`src/brand/Capa.tsx` e `src/brand/Logo.tsx`, gerados como imagens pelo Remotion. A página `/marca.html` mostra a capa com as áreas de corte do YouTube (TV, computador, todos os aparelhos) e o logo no recorte redondo, com botões para baixar.
+## Channel art
 
-- **Capa:** a tela com o nome e a frase fica no retângulo central de 1546×423, o único que aparece no celular. Direcional e botões ficam nas laterais da faixa do meio (computador). Emenda, botões de pílula e alto-falante, só na TV.
-- **Logo:** a tela do console com o cursor e o play, bem dentro do círculo.
+`src/brand/Banner.tsx` (Portuguese and English, compositions `BannerPt` and `BannerEn`) and `src/brand/Logo.tsx`, rendered as PNGs by Remotion. `/brand/` shows the banners with YouTube's crop areas and the picture in its round crop, with download buttons.
+
+- **Banner:** the screen with the name and the line sits inside the central 1546×423 area, the only part phones show. The cross pad and buttons fill the sides of the middle band (computers). The seam, pill buttons and speaker only show on TVs.
+- **Picture:** the console screen with the caret and the play button, well inside the circle.

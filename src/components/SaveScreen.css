@@ -32,8 +32,22 @@
 }
 .slot-n { font-size: 1.5rem; line-height: 1; color: var(--muted-ink); }
 .slot-body { display: grid; min-width: 0; }
-.slot-title { font-size: 1.2rem; line-height: 1.05; letter-spacing: 0.03em; }
-.slot-meta { font-size: 0.95rem; line-height: 1.05; color: var(--muted-ink); }
+.slot-title {
+  overflow: hidden;
+  font-size: 1.2rem;
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.slot-meta {
+  overflow: hidden;
+  font-size: 0.95rem;
+  line-height: 1.05;
+  color: var(--muted-ink);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .slot-go { font-size: 1rem; }
 
 .slot.is-current {
@@ -44,6 +58,7 @@
 .slot.is-current .slot-n,
 .slot.is-current .slot-meta { color: var(--screen-line); }
 .slot.is-current:hover { background: var(--bezel); border-color: var(--bezel); }
+a.slot:not(.is-current):hover { border-color: var(--ink); background: var(--screen-line); }
 .slot:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
 .slot.is-empty { border-style: dashed; color: var(--muted-ink); }

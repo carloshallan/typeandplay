@@ -12,13 +12,12 @@ import {
 } from "remotion"
 import { Console } from "../components/Console"
 import "./fonts"
-import "./vinheta.css"
+import "./intro.css"
 
 const FPS = 60
 const SECONDS = 5.5
 
-export const VINHETA = {
-  id: "Vinheta",
+export const INTRO = {
   fps: FPS,
   durationInFrames: FPS * SECONDS,
   width: 1920,
@@ -46,12 +45,12 @@ const T = {
 
 /**
  * Sound: one key of Momo's electric typewriter per letter (CC0, see
- * public/sounds/LICENCA-teclas.txt), the wide key for the A button, and an
+ * public/sounds/LICENSE-typewriter.txt), the wide key for the A button, and an
  * original 8-bit power-on chime when the memory is saved.
  */
 const KEY_SOUNDS = [1, 2, 3, 4, 5, 6, 7].map(n => staticFile(`sounds/typewriter${n}.wav`))
 const PRESS_SOUND = staticFile("sounds/typewriter8.wav")
-const CHIME = staticFile("sounds/ligar.wav")
+const CHIME = staticFile("sounds/power-on.wav")
 
 function Soundtrack() {
   return (
@@ -71,11 +70,21 @@ function Soundtrack() {
   )
 }
 
+/** The words on the screen, one set per channel language. */
+const COPY = {
+  pt: { newGame: "Novo jogo", saving: "Salvando memória", saved: "Memória salva." },
+  en: { newGame: "New game", saving: "Saving memory", saved: "Memory saved." }
+} as const
+
+export type IntroLanguage = keyof typeof COPY
+export type IntroProps = { language: IntroLanguage }
+
 const SAVE_BLOCKS = 10
 const COLOR = { screen: "#dfe0cf", screenOff: "#8e9283" }
 
 /** The screen, frame by frame: lights up, types the name, saves. */
-function Screen({ frame }: { frame: number }) {
+function Screen({ frame, language }: { frame: number; language: IntroLanguage }) {
+  const copy = COPY[language]
   const lit = frame >= T.lcdTo
   const typed = T.keys.filter(key => frame >= key).length
   const lastKey = T.keys[T.keys.length - 1]
@@ -92,32 +101,32 @@ function Screen({ frame }: { frame: number }) {
   if (!lit) return null
 
   return (
-    <div className="v-screen">
-      <p className="v-hud">
-        <span>Novo jogo</span>
+    <div className="intro-screen">
+      <p className="intro-hud">
+        <span>{copy.newGame}</span>
         <span>01</span>
       </p>
 
-      <p className="v-word">
+      <p className="intro-word">
         <span className="w-type">{"type".slice(0, Math.min(typed, 4))}</span>
         {typed >= 5 && <span className="w-amp"> &amp; </span>}
         <span className="w-play">{"play".slice(0, Math.max(0, typed - 5))}</span>
-        <span className="v-caret" style={{ visibility: caretOn ? "visible" : "hidden" }} />
+        <span className="intro-caret" style={{ visibility: caretOn ? "visible" : "hidden" }} />
       </p>
 
-      <div className="v-save" style={{ visibility: saving ? "visible" : "hidden" }}>
-        <span className="v-bar">
+      <div className="intro-save" style={{ visibility: saving ? "visible" : "hidden" }}>
+        <span className="intro-bar">
           {Array.from({ length: SAVE_BLOCKS }, (_, i) => (
             <i key={i} className={i < filled ? "is-full" : undefined} />
           ))}
         </span>
-        <span className="v-label">{frame >= T.saved ? "Memória salva." : "Salvando memória"}</span>
+        <span className="intro-label">{frame >= T.saved ? copy.saved : copy.saving}</span>
       </div>
     </div>
   )
 }
 
-export function Vinheta() {
+export function Intro({ language }: IntroProps) {
   const frame = useCurrentFrame()
   const { fps } = useVideoConfig()
 
@@ -134,16 +143,16 @@ export function Vinheta() {
   })
 
   return (
-    <AbsoluteFill className="v-stage">
+    <AbsoluteFill className="intro-stage">
       <Soundtrack />
       <Console
-        className="v-device"
+        className="intro-device"
         ledOn={frame >= T.ledOn}
         screenColor={lcd}
         pressed={pressed}
         style={{ transform: `translateY(${y + kick}px) rotate(${tilt}deg) scale(1.6)` }}
       >
-        <Screen frame={frame} />
+        <Screen frame={frame} language={language} />
       </Console>
     </AbsoluteFill>
   )

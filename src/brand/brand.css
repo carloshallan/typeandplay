@@ -1,14 +1,14 @@
 /* Channel art. Same rules as the site: solid colours, thick ink borders. */
 
 /* ---------- Banner, 2560×1440 ---------- */
-.capa {
+.banner {
   background: var(--shell);
   color: var(--ink);
   font-family: var(--serif);
 }
 
 /* Seen only on TVs (above the 423 px band). */
-.capa-seam {
+.banner-seam {
   position: absolute;
   top: 150px;
   left: 140px;
@@ -18,7 +18,7 @@
 }
 
 /* Band every computer shows: y 508 to 931. Centre line at 720. */
-.capa-bezel {
+.banner-bezel {
   position: absolute;
   left: 50%;
   top: 720px;
@@ -32,7 +32,7 @@
   box-sizing: border-box;
 }
 
-.capa-power {
+.banner-power {
   position: absolute;
   left: 30px;
   top: 50%;
@@ -49,7 +49,7 @@
   text-transform: uppercase;
   color: var(--bezel-text);
 }
-.capa-led {
+.banner-led {
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -57,7 +57,7 @@
   border: 6px solid var(--ink);
 }
 
-.capa-screen {
+.banner-screen {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -69,7 +69,7 @@
   box-sizing: border-box;
 }
 
-.capa-hud {
+.banner-hud {
   display: flex;
   justify-content: space-between;
   margin: 0;
@@ -80,24 +80,24 @@
   text-transform: uppercase;
   color: var(--muted-ink);
 }
-.capa-hud span:first-child { color: var(--ink); }
+.banner-hud span:first-child { color: var(--ink); }
 
-.capa-word {
+.banner-word {
   margin: 0;
   text-align: center;
   font-size: 128px;
   line-height: 1;
   white-space: nowrap;
 }
-.capa-word .w-type { font-style: italic; font-weight: 400; }
-.capa-word .w-amp { font-weight: 300; }
-.capa-word .w-play {
+.banner-word .w-type { font-style: italic; font-weight: 400; }
+.banner-word .w-amp { font-weight: 300; }
+.banner-word .w-play {
   font-family: var(--pixel);
   font-size: 158px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-.capa-caret {
+.banner-caret {
   display: inline-block;
   width: 52px;
   height: 104px;
@@ -106,7 +106,7 @@
   background: var(--ink);
 }
 
-.capa-line {
+.banner-line {
   margin: 0;
   text-align: center;
   font-family: var(--pixel);
@@ -116,7 +116,7 @@
 }
 
 /* Sides of the band: seen on computers, cut on phones. */
-.capa-dpad {
+.banner-dpad {
   position: absolute;
   left: 200px;
   top: 720px;
@@ -125,16 +125,16 @@
   transform: translateY(-50%);
   overflow: visible;
 }
-.capa-dpad .cross {
+.banner-dpad .cross {
   fill: var(--key);
   stroke: var(--ink);
   stroke-width: 3.6;
   stroke-linejoin: round;
 }
-.capa-dpad .dimple { fill: var(--key-deep); stroke: var(--ink); stroke-width: 2.4; }
-.capa-dpad .arrow { fill: var(--key-deep); }
+.banner-dpad .dimple { fill: var(--key-deep); stroke: var(--ink); stroke-width: 2.4; }
+.banner-dpad .arrow { fill: var(--key-deep); }
 
-.capa-btn {
+.banner-btn {
   position: absolute;
   display: grid;
   place-items: center;
@@ -149,11 +149,11 @@
   font-weight: 500;
   color: var(--key-deep);
 }
-.capa-btn.is-b { left: 2110px; top: 700px; }
-.capa-btn.is-a { left: 2300px; top: 590px; }
+.banner-btn.is-b { left: 2110px; top: 700px; }
+.banner-btn.is-a { left: 2300px; top: 590px; }
 
 /* Seen only on TVs (below the band). */
-.capa-pills {
+.banner-pills {
   position: absolute;
   left: 50%;
   top: 1080px;
@@ -161,7 +161,7 @@
   gap: 60px;
   transform: translateX(-50%);
 }
-.capa-pills i {
+.banner-pills i {
   width: 130px;
   height: 44px;
   border-radius: 999px;
@@ -170,7 +170,7 @@
   transform: rotate(-24deg);
 }
 
-.capa-speaker {
+.banner-speaker {
   position: absolute;
   right: 190px;
   bottom: 150px;
@@ -178,18 +178,18 @@
   grid-template-columns: repeat(6, 26px);
   gap: 22px;
 }
-.capa-speaker i {
+.banner-speaker i {
   width: 26px;
   height: 26px;
   border-radius: 50%;
   background: var(--ink);
 }
-.capa-speaker i:nth-child(12n + 7),
-.capa-speaker i:nth-child(12n + 8),
-.capa-speaker i:nth-child(12n + 9),
-.capa-speaker i:nth-child(12n + 10),
-.capa-speaker i:nth-child(12n + 11),
-.capa-speaker i:nth-child(12n + 12) { transform: translateX(24px); }
+.banner-speaker i:nth-child(12n + 7),
+.banner-speaker i:nth-child(12n + 8),
+.banner-speaker i:nth-child(12n + 9),
+.banner-speaker i:nth-child(12n + 10),
+.banner-speaker i:nth-child(12n + 11),
+.banner-speaker i:nth-child(12n + 12) { transform: translateX(24px); }
 
 /* ---------- Channel picture, 800×800 ---------- */
 .logo {

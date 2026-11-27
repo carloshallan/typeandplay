@@ -4,28 +4,33 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
     "studio": "remotion studio src/video/index.ts",
-    "vinheta": "remotion render src/video/index.ts Vinheta out/vinheta.mp4",
-    "capa": "remotion still src/video/index.ts Capa public/marca/capa-youtube.png",
-    "logo": "remotion still src/video/index.ts Logo public/marca/logo-youtube.png",
-    "marca": "npm run capa && npm run logo"
+    "intro": "remotion render src/video/index.ts IntroPt out/intro-pt.mp4 && remotion render src/video/index.ts IntroEn out/intro-en.mp4",
+    "banner": "remotion still src/video/index.ts BannerPt public/brand/youtube-banner-pt.png && remotion still src/video/index.ts BannerEn public/brand/youtube-banner-en.png",
+    "logo": "remotion still src/video/index.ts Logo public/brand/youtube-logo.png",
+    "brand": "npm run banner && npm run logo"
   },
   "dependencies": {
+    "@astrojs/mdx": "8.1.6",
+    "@astrojs/react": "7.1.9",
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.6",
     "@remotion/google-fonts": "4.0.547",
     "@remotion/player": "4.0.547",
+    "astro": "7.4.13",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "remotion": "4.0.547"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.12",
     "@remotion/cli": "4.0.547",
     "@types/react": "19.3.3",
     "@types/react-dom": "19.3.0",
-    "@vitejs/plugin-react": "5.1.1",
-    "typescript": "5.9.3",
-    "vite": "7.2.4"
+    "typescript": "5.9.3"
   }
 }

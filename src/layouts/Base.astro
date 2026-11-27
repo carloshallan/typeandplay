@@ -1,0 +1,68 @@
+---
+import "../tokens.css"
+import "../styles/site.css"
+import SiteHeader from "../components/SiteHeader.astro"
+import SiteFooter from "../components/SiteFooter.astro"
+import { SITE } from "../lib/site"
+
+interface Props {
+  title?: string
+  description?: string
+  /** Share image, as a path on this site. */
+  image?: string
+  /** Page background: the console's turquoise, or paper for reading. */
+  tone?: "shell" | "paper"
+  type?: "website" | "article"
+  noindex?: boolean
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = "/brand/youtube-logo.png",
+  tone = "shell",
+  type = "website",
+  noindex = false
+} = Astro.props
+
+const fullTitle = title ? `${title} · ${SITE.name}` : SITE.name
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const imageUrl = new URL(image, Astro.site)
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#1fa9b1" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? SITE.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=VT323&display=swap"
+    />
+  </head>
+  <body class={`tone-${tone}`}>
+    <SiteHeader />
+    <slot />
+    <SiteFooter />
+  </body>
+</html>

@@ -1,0 +1,41 @@
+---
+import Base from "../layouts/Base.astro"
+import PostSlots from "../components/PostSlots.astro"
+import { HomeConsole } from "../components/HomeConsole"
+import { getPosts, postUrl } from "../lib/posts"
+import { SITE, SUBSCRIBE_URL } from "../lib/site"
+
+const posts = await getPosts()
+const latest = posts[0]
+const RECENT = 6
+---
+
+<Base>
+  <main>
+    <div class="stage">
+      <section class="hero">
+        <p class="hud">Arquivo 01 · Novo jogo</p>
+        <h1>
+          Alguns jogos <em>guardam</em> mais do que o progresso.<span class="caret" aria-hidden="true"></span>
+        </h1>
+        <p class="lede">{SITE.description}</p>
+        <div class="actions">
+          <a class="button" href={SITE.channelUrl} target="_blank" rel="noopener">
+            <span class="play" aria-hidden="true">▶</span> Assistir no YouTube
+          </a>
+          <a class="quiet" href={SUBSCRIBE_URL} target="_blank" rel="noopener">Inscrever-se no canal</a>
+        </div>
+      </section>
+
+      <HomeConsole latest={latest && { title: latest.data.title, href: postUrl(latest) }} />
+    </div>
+
+    <section class="shelf" aria-labelledby="shelf-title">
+      <div class="shelf-head">
+        <h2 id="shelf-title" class="hud">Memórias salvas</h2>
+        {posts.length > RECENT && <a class="quiet" href="/posts/">Todos os textos</a>}
+      </div>
+      <PostSlots posts={posts.slice(0, RECENT)} />
+    </section>
+  </main>
+</Base>

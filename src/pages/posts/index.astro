@@ -1,0 +1,17 @@
+---
+import Base from "../../layouts/Base.astro"
+import PostSlots from "../../components/PostSlots.astro"
+import { getPosts } from "../../lib/posts"
+
+const posts = await getPosts()
+---
+
+<Base title="Textos" description="Todos os textos do type & play, do mais novo ao mais antigo.">
+  <main class="shelf is-page">
+    <div class="shelf-head">
+      <h1 class="shelf-title">Textos</h1>
+      <p class="hud">{posts.length} {posts.length === 1 ? "memória salva" : "memórias salvas"}</p>
+    </div>
+    <PostSlots posts={posts} />
+  </main>
+</Base>

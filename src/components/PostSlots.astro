@@ -1,0 +1,49 @@
+---
+import { formatDate, padNumber, postUrl, type Post } from "../lib/posts"
+
+interface Props {
+  posts: Post[]
+}
+
+const { posts } = Astro.props
+---
+
+<ol class="post-slots">
+  {
+    posts.map(post => (
+      <li>
+        <a class="post-slot" href={postUrl(post)}>
+          <span class="post-slot-n">{padNumber(post.number)}</span>
+          <span class="post-slot-body">
+            <span class="post-slot-title">
+              {post.data.title}
+              {post.data.draft && <span class="draft-tag">Rascunho</span>}
+            </span>
+            {post.data.description && <span class="post-slot-text">{post.data.description}</span>}
+            <span class="post-slot-meta">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              <span>{post.minutes} min de leitura</span>
+              {post.data.game && <span>{post.data.game}</span>}
+            </span>
+          </span>
+          <span class="post-slot-go" aria-hidden="true">
+            ▶
+          </span>
+        </a>
+      </li>
+    ))
+  }
+  {
+    posts.length === 0 && (
+      <li>
+        <div class="post-slot is-empty">
+          <span class="post-slot-n">01</span>
+          <span class="post-slot-body">
+            <span class="post-slot-title">Espaço livre</span>
+            <span class="post-slot-text">O primeiro texto está sendo escrito.</span>
+          </span>
+        </div>
+      </li>
+    )
+  }
+</ol>

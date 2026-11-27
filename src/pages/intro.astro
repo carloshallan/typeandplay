@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro"
+import { IntroPlayer } from "../components/IntroPlayer"
+import { INTRO } from "../video/Intro"
+import "../styles/tools.css"
+
+const seconds = (INTRO.durationInFrames / INTRO.fps).toLocaleString("pt-BR")
+---
+
+<Base title="Vinheta" tone="paper" noindex>
+  <main class="tool">
+    <div class="tool-head">
+      <h1>Vinheta</h1>
+      <p>{seconds} s · {INTRO.width}×{INTRO.height} · {INTRO.fps} fps</p>
+    </div>
+    <IntroPlayer client:only="react" />
+    <p class="tool-note">
+      Para gerar os dois MP4 (português e inglês) em <code>out/</code>: <code>npm run intro</code>
+    </p>
+  </main>
+</Base>
