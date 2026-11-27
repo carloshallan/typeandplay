@@ -6,6 +6,7 @@ import YouTube from "../../components/YouTube.astro"
 import { categoryUrl, formatDate, getPosts, padNumber, postUrl, type Post } from "../../lib/posts"
 import { SITE } from "../../lib/site"
 import "../../styles/post.css"
+import "../../styles/pixel-trial.css"
 
 export async function getStaticPaths() {
   const posts = await getPosts()
