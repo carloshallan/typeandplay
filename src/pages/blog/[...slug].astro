@@ -31,42 +31,47 @@ const SAVE_BLOCKS = 10
 
 <Base title={title} description={description} image={shareImage} tone="reader" type="article">
   <main class="post-page">
-    <header class="post post-head">
-      <p class="hud">
-        Memória {padNumber(post.number)} · <time datetime={date.toISOString()}>{formatDate(date)}</time>
-        {draft && " · Rascunho"}
-      </p>
-      <h1>{title}</h1>
-      {description && <p class="post-lede">{description}</p>}
-      <p class="post-byline">
-        por <a href={SITE.author.url} rel="author">{SITE.author.name}</a>
-      </p>
-      <p class="post-meta">
-        {cartridge && <span class="cartridge">{cartridge}</span>}
-        <span>{post.minutes} min de leitura</span>
-      </p>
+    {/* With a cover, the cover opens the page, edge to edge, and the head sits over its
+        lower part on its own card. Covers are 1600×700 (see AGENTS.md). */}
+    <div class:list={["post-hero", { "has-cover": cover }]}>
       {
-        categories.length > 0 && (
-          <nav class="category-chips" aria-label="Categorias deste texto">
-            {categories.map(name => <a href={categoryUrl(name)}>{name}</a>)}
-          </nav>
+        cover && (
+          <Image
+            class="post-hero-cover"
+            src={cover}
+            alt={coverAlt ?? ""}
+            widths={[800, 1200, 1600]}
+            sizes="100vw"
+            loading="eager"
+            fetchpriority="high"
+          />
         )
       }
-    </header>
-
-    {/* Covers are 1600×700 and run the full width of the window (see AGENTS.md). */}
-    {
-      cover && (
-        <Image
-          class="post-cover"
-          src={cover}
-          alt={coverAlt ?? ""}
-          widths={[800, 1200, 1600]}
-          sizes="100vw"
-          loading="eager"
-        />
-      )
-    }
+      <header class="post post-head">
+        <div class="post-head-card">
+          <p class="hud">
+            Memória {padNumber(post.number)} · <time datetime={date.toISOString()}>{formatDate(date)}</time>
+            {draft && " · Rascunho"}
+          </p>
+          <h1>{title}</h1>
+          {description && <p class="post-lede">{description}</p>}
+          <p class="post-byline">
+            por <a href={SITE.author.url} rel="author">{SITE.author.name}</a>
+          </p>
+          <p class="post-meta">
+            {cartridge && <span class="cartridge">{cartridge}</span>}
+            <span>{post.minutes} min de leitura</span>
+          </p>
+          {
+            categories.length > 0 && (
+              <nav class="category-chips" aria-label="Categorias deste texto">
+                {categories.map(name => <a href={categoryUrl(name)}>{name}</a>)}
+              </nav>
+            )
+          }
+        </div>
+      </header>
+    </div>
 
     <div class="post">
       <div class="prose">

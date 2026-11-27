@@ -67,20 +67,35 @@
   background: var(--screen);
 }
 
-/* Covers are 1600×700 and fill the window's width, edge to edge; ink lines close the band. */
-.post-cover {
+/* The cover opens the page: the window's full width, at most about three quarters of its
+   height (wide screens trim top and bottom), with an ink line under it. */
+.post-hero-cover {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 7;
+  height: min(74vh, 700px);
   object-fit: cover;
-  /* Full width, but never taller than most of the window: wide screens crop top and bottom. */
-  max-height: min(70vh, 640px);
-  object-position: center;
-  margin: 40px 0 0;
-  border: 0;
-  border-top: 3px solid var(--ink);
+  object-position: center 30%;
   border-bottom: 3px solid var(--ink);
+}
+
+/* The head rises over the cover's lower part, on a card of the page's paper. */
+.post-hero.has-cover .post-head {
+  position: relative;
+  margin-top: clamp(-260px, -24vh, -140px);
+  padding-top: 0;
+}
+.post-hero.has-cover .post-head-card {
+  padding: clamp(22px, 3.4vw, 40px);
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  background: var(--paper);
+}
+
+/* On phones the pills float over the cover, so the page drops its strip for them. */
+@media (max-width: 719px) {
+  body:has(.post-hero.has-cover) { padding-top: 0; }
+  .post-hero-cover { height: min(62vh, 460px); }
+  .post-hero.has-cover .post-head { margin-top: -96px; }
 }
 
 /* Full HD and up: a little wider, while the text keeps a book's measure (about 72 characters). */
