@@ -70,8 +70,18 @@ a { color: inherit; }
 .header-pill:hover,
 .header-pill[aria-current="page"] { background: var(--ink); color: var(--reader-card); }
 
-.brand { gap: 10px; padding: 0 22px 0 10px; }
-.brand:hover { background: var(--reader-card); color: var(--ink); }
+/* The logo's pill wears the logo's own ink, so the logo runs into it edge to edge;
+   "PLAY" takes the turquoise of its play triangle. */
+.brand,
+.brand:hover { gap: 12px; padding: 0 22px 0 0; background: var(--ink); color: var(--reader-card); }
+.brand .w-play { color: var(--shell); }
+.brand-mark {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  padding: 0 0 0 12px;
+}
+.brand-mark img { display: block; width: 40px; height: 40px; }
 .brand:hover .w-play { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
 
 .wordmark { font-size: 1.55rem; line-height: 1; white-space: nowrap; }
@@ -397,7 +407,9 @@ a.post-slot:hover .post-slot-cover { border-color: var(--paper); }
 @media (max-width: 560px) {
   .header-pill { height: 46px; padding: 0 14px; }
   .nav-pill { font-size: 1.2rem; }
-  .brand { padding: 0 8px; }
+  .brand { width: 46px; padding: 0; }
+  .brand-mark { flex: 1; padding: 0; }
+  .brand-mark img { width: 34px; height: 34px; }
   .brand .wordmark { display: none; }
   .post-slot { grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 14px 14px 14px 12px; }
   .post-slot-n { font-size: 1.9rem; }
