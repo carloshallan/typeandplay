@@ -4,10 +4,10 @@ Rules for anyone (person or agent) working in this repository. The README explai
 
 ## Post covers: always 1600×700
 
-- **Every post cover is 1600×700 px** (16:7), saved as `cover.png` (or `.jpg`) next to the post's `index.md` and set in front matter as `cover: ./cover.png`, with `coverAlt` describing it.
+- **Every post cover is 1600×700 px** (16:7), saved as `cover.jpg` (paintings, photos) or `cover.png` (flat art) next to the post's `index.md` and set in front matter as `cover: ./cover.jpg`, with `coverAlt` describing it.
 - On the post page the cover **opens the page**, the full width of the window, edge to edge, and the head (title, subtitle, byline, tags) sits over its lower part on a paper card. In the blog list it shows as a 16:7 thumbnail. Its height is capped (`min(74vh, 700px)`), so wide screens trim the top and bottom, and the title card covers roughly the lowest third in the middle: keep the subject in the upper middle (roughly y 80 to 420) and nothing important within 40 px of the sides.
-- An illustration made for a cover keeps its editable source beside it (`cover.svg`), and the PNG is rendered from it at 1600×700 (`sharp` is already installed with Astro).
-- Covers follow the identity below: flat 2D, solid colours, ink outlines. They do not have to be turquoise.
+- Covers are free of the site's flat identity: a painting, a cinematic illustration or a photo is welcome. A vector cover keeps its editable source beside it (`cover.svg`) and is rendered to 1600×700 with `sharp`. Generated covers come from the Codex CLI (a `BRIEF.md` and `codex exec` with image generation), are cropped to 16:7 and saved as JPEG at quality 90.
+- No text, logos, trademarks, recognisable game characters or close-up faces in a cover.
 
 ## Writing
 
