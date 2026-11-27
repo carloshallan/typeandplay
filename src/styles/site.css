@@ -40,26 +40,39 @@ a { color: inherit; }
   border-radius: 6px;
 }
 
-/* ---------- Header ---------- */
+/* ---------- Header: floating pills in the top-right corner ---------- */
 .site-header {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 900;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 22px var(--gutter);
+  gap: 8px;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.tone-paper .site-header,
-.tone-reader .site-header {
-  background: var(--shell);
-  border-bottom: 3px solid var(--ink);
-}
+.site-header.is-tucked:not(:focus-within) { transform: translateY(calc(-100% - 24px)); }
 
-.brand {
+.header-pill {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  height: 48px;
+  padding: 0 16px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--reader-card);
+  color: var(--ink);
   text-decoration: none;
+  white-space: nowrap;
 }
+.header-pill:hover,
+.header-pill[aria-current="page"] { background: var(--ink); color: var(--reader-card); }
+
+.brand { padding: 0 16px 0 5px; }
+.brand:hover { background: var(--reader-card); color: var(--ink); }
+.brand:hover .w-play { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
 
 .wordmark { font-size: 1.55rem; line-height: 1; white-space: nowrap; }
 .wordmark .w-type { font-style: italic; font-weight: 420; }
@@ -71,27 +84,25 @@ a { color: inherit; }
   text-transform: uppercase;
 }
 
-.site-nav { display: flex; align-items: center; gap: 18px; }
+.site-nav { display: flex; align-items: center; gap: 8px; }
 
-.nav-link,
 .nav-pill {
   font-family: var(--pixel);
   font-size: 1.35rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  text-decoration: none;
 }
-.nav-link { text-underline-offset: 6px; text-decoration-thickness: 3px; }
-.nav-link:hover,
-.nav-link[aria-current="page"] { text-decoration-line: underline; }
 
-.nav-pill {
-  padding: 4px 12px;
-  white-space: nowrap;
-  border: 3px solid var(--ink);
-  border-radius: 999px;
+/* Phones: the pills would sit on the first lines, so the page leaves them a strip. */
+@media (max-width: 719px) {
+  body { padding-top: 76px; }
 }
-.nav-pill:hover { background: var(--ink); color: var(--paper); }
+@media (min-width: 720px) {
+  .site-header { top: 20px; right: 24px; }
+  /* Pages whose first row reaches the right edge start below the pills. */
+  body .stage,
+  body .shelf.is-page { padding-top: max(92px, 8vh); }
+}
 
 /* ---------- Footer ---------- */
 .site-footer {
@@ -293,7 +304,12 @@ a { color: inherit; }
 
 .post-slots li[hidden] { display: none; }
 
+/* Post cards are e-reader pages wherever they show, the home's turquoise included. */
 .post-slots {
+  --ink: var(--reader-ink);
+  --paper: var(--reader-card);
+  --muted-ink: var(--reader-muted);
+  --screen: var(--reader-screen);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -379,9 +395,10 @@ a.post-slot:hover .post-slot-cover { border-color: var(--paper); }
 
 /* ---------- Phones ---------- */
 @media (max-width: 560px) {
-  .site-nav { gap: 12px; }
-  .nav-link, .nav-pill { font-size: 1.2rem; }
-  .nav-pill { padding: 2px 10px; }
+  .header-pill { height: 44px; padding: 0 12px; }
+  .nav-pill { font-size: 1.2rem; }
+  .brand { padding: 0 5px; }
+  .brand .wordmark { display: none; }
   .post-slot { grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 14px 14px 14px 12px; }
   .post-slot-n { font-size: 1.9rem; }
   .post-slot-go { display: none; }
@@ -391,10 +408,6 @@ a.post-slot:hover .post-slot-cover { border-color: var(--paper); }
 }
 
 @media (max-width: 420px) {
-  .wordmark { font-size: 1.3rem; }
-  .wordmark .w-play { font-size: 1.6rem; }
-  .brand { gap: 8px; }
-  .brand img { width: 30px; height: 30px; }
   .device.home-device { padding: 40px 16px 28px; }
   .home-device .bezel { padding: 16px 38px 12px; }
   .home-device .power { left: 3px; width: 30px; font-size: 0.6rem; }
@@ -403,10 +416,38 @@ a.post-slot:hover .post-slot-cover { border-color: var(--paper); }
   .home-device .lower { margin-left: 40px; }
 }
 
-@media (max-width: 370px) {
-  .site-header { flex-wrap: wrap; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .caret { animation: none; }
+  .site-header { transition: none; }
 }
+
+/* ---------- Page curtain: pixel blocks between pages (PageCurtain.astro) ---------- */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 1), 1fr);
+  grid-auto-rows: var(--block, 64px);
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.curtain.is-active { visibility: visible; pointer-events: auto; }
+/* Covered from the first paint until the blocks are built; never longer than 2.5 s. */
+html.curtain-in .curtain {
+  visibility: visible;
+  background: var(--ink);
+  animation: curtain-safety 0s linear 2.5s forwards;
+}
+.curtain i {
+  background: var(--ink);
+  transform: scale(0);
+}
+.curtain.is-covering i { animation: curtain-block-in 110ms steps(3, end) var(--d, 0ms) both; }
+.curtain.is-uncovering i { animation: curtain-block-out 110ms steps(3, end) var(--d, 0ms) both; }
+
+/* Full size overlaps a hair, so no seams show between blocks. */
+@keyframes curtain-block-in { from { transform: scale(0); } to { transform: scale(1.04); } }
+@keyframes curtain-block-out { from { transform: scale(1.04); } to { transform: scale(0); } }
+@keyframes curtain-safety { to { visibility: hidden; } }

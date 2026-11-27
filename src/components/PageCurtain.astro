@@ -1,0 +1,94 @@
+---
+/**
+ * Page transition: a curtain of pixel blocks. Following a link inside the site,
+ * blocks fill the screen column by column, left to right; the next page opens
+ * covered and the blocks clear in the same direction. Nothing moves with reduced motion.
+ *
+ * The opening half starts in Base.astro's <head>, which marks <html> with
+ * "curtain-in" before the first paint so the new page never flashes uncovered.
+ */
+---
+
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+
+<script>
+  const BLOCK_MS = 110
+  const SWEEP_MS = 260
+  const JITTER_MS = 70
+  const TOTAL_MS = SWEEP_MS + JITTER_MS + BLOCK_MS
+
+  const root = document.documentElement
+  const curtain = document.getElementById("curtain")
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)")
+
+  /** Fills the curtain with blocks sized to the window, each with its moment in the sweep. */
+  function build(curtain: HTMLElement) {
+    const size = Math.max(40, Math.ceil(window.innerWidth / 24))
+    const cols = Math.ceil(window.innerWidth / size)
+    const rows = Math.ceil(window.innerHeight / size)
+    const span = Math.max(1, cols - 1)
+    curtain.style.setProperty("--cols", String(cols))
+    curtain.style.setProperty("--block", `${size}px`)
+
+    const blocks: HTMLElement[] = []
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const block = document.createElement("i")
+        const delay = (col / span) * SWEEP_MS + Math.random() * JITTER_MS
+        block.style.setProperty("--d", `${Math.round(delay)}ms`)
+        blocks.push(block)
+      }
+    }
+    curtain.replaceChildren(...blocks)
+  }
+
+  function reset(curtain: HTMLElement) {
+    curtain.className = "curtain"
+    curtain.replaceChildren()
+  }
+
+  /** Same-site page links only: not new tabs, downloads, files, or a jump within this page. */
+  function destination(event: MouseEvent) {
+    if (event.defaultPrevented || event.button !== 0) return null
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return null
+    const link = (event.target as Element | null)?.closest?.("a[href]")
+    if (!(link instanceof HTMLAnchorElement)) return null
+    if ((link.target && link.target !== "_self") || link.hasAttribute("download")) return null
+    const url = new URL(link.href, location.href)
+    if (url.origin !== location.origin) return null
+    if (url.pathname === location.pathname && url.search === location.search) return null
+    if (/\.[a-z0-9]+$/i.test(url.pathname) && !url.pathname.endsWith(".html")) return null
+    return url
+  }
+
+  if (curtain) {
+    // Opening: this page arrived covered; clear it.
+    if (root.classList.contains("curtain-in")) {
+      build(curtain)
+      curtain.className = "curtain is-active is-uncovering"
+      root.classList.remove("curtain-in")
+      window.setTimeout(() => reset(curtain), TOTAL_MS + 50)
+    }
+
+    // Leaving: cover the page, then go.
+    document.addEventListener("click", event => {
+      if (still.matches) return
+      const url = destination(event)
+      if (!url) return
+      event.preventDefault()
+      build(curtain)
+      curtain.className = "curtain is-active is-covering"
+      try {
+        sessionStorage.setItem("curtain", "1")
+      } catch {
+        // Without storage the next page simply opens uncovered.
+      }
+      window.setTimeout(() => location.assign(url.href), TOTAL_MS)
+    })
+
+    // Coming back through the history cache shows the page as it was left: covered.
+    window.addEventListener("pageshow", event => {
+      if (event.persisted) reset(curtain)
+    })
+  }
+</script>

@@ -3,6 +3,7 @@ import "../tokens.css"
 import "../styles/site.css"
 import SiteHeader from "../components/SiteHeader.astro"
 import SiteFooter from "../components/SiteFooter.astro"
+import PageCurtain from "../components/PageCurtain.astro"
 import { SITE, withBase } from "../lib/site"
 
 interface Props {
@@ -35,6 +36,17 @@ const imageUrl = new URL(image, Astro.site)
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      // Arriving through the block curtain (PageCurtain.astro): start covered, before the first paint.
+      try {
+        if (sessionStorage.getItem("curtain") === "1") {
+          sessionStorage.removeItem("curtain")
+          if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            document.documentElement.classList.add("curtain-in")
+          }
+        }
+      } catch (error) {}
+    </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={SITE.author.name} />
@@ -62,6 +74,7 @@ const imageUrl = new URL(image, Astro.site)
     />
   </head>
   <body class={`tone-${tone}`}>
+    <PageCurtain />
     <SiteHeader />
     <slot />
     <SiteFooter />

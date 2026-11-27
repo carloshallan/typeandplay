@@ -4,17 +4,37 @@ import { SITE, withBase } from "../lib/site"
 const inBlog = Astro.url.pathname.startsWith(withBase("/blog"))
 ---
 
-<header class="site-header">
-  <a class="brand" href={withBase("/")} aria-label="type & play, início">
-    <img src={withBase("/logo.svg")} alt="" width="36" height="36" />
+<!-- Floating pills in the top corner instead of a bar, so the page starts at the top of the
+     window. They tuck away while you scroll down to read and come back when you scroll up. -->
+<header class="site-header" id="site-header">
+  <a class="header-pill brand" href={withBase("/")} aria-label="type & play, início">
+    <img src={withBase("/logo.svg")} alt="" width="34" height="34" />
     <span class="wordmark">
       <span class="w-type">type</span>{" "}<span class="w-amp">&amp;</span>{" "}<span class="w-play">play</span>
     </span>
   </a>
   <nav class="site-nav" aria-label="Principal">
-    <a class="nav-link" href={withBase("/blog/")} aria-current={inBlog ? "page" : undefined}>Blog</a>
-    <a class="nav-pill" href={SITE.channelUrl} target="_blank" rel="noopener">
+    <a class="header-pill nav-pill" href={withBase("/blog/")} aria-current={inBlog ? "page" : undefined}>Blog</a>
+    <a class="header-pill nav-pill" href={SITE.channelUrl} target="_blank" rel="noopener">
       YouTube <span aria-hidden="true">↗</span>
     </a>
   </nav>
 </header>
+
+<script>
+  const header = document.getElementById("site-header")
+  const SHOW_ABOVE = 120
+  const NUDGE = 6
+  let lastY = window.scrollY
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const y = window.scrollY
+      if (!header || Math.abs(y - lastY) < NUDGE) return
+      header.classList.toggle("is-tucked", y > SHOW_ABOVE && y > lastY)
+      lastY = y
+    },
+    { passive: true }
+  )
+</script>
