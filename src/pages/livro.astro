@@ -1,0 +1,71 @@
+---
+import Base from "../layouts/Base.astro"
+import { SITE, withBase } from "../lib/site"
+import "../styles/book.css"
+
+// The finished book, in mm. The faces in public/book/ are cut from the print cover
+// (Dropbox, "type & play/print"), already trimmed to this size.
+const BOOK = { width: 103, height: 138, thickness: 16.5 }
+const faces = {
+  front: withBase("/book/front.jpg"),
+  spine: withBase("/book/spine.jpg"),
+  back: withBase("/book/back.jpg")
+}
+---
+
+<Base
+  title="O livro"
+  tone="paper"
+  description="type & play vai virar livro: a trajetória pelos jogos que atravessaram a minha vida. Cada capítulo também é um vídeo no canal."
+  image={faces.front}
+>
+  <main>
+    <div class="stage book-stage">
+      <section class="hero">
+        <p class="hud">Arquivo 01 · Livro</p>
+        <h1>Os jogos que atravessaram a minha vida, <em>em livro</em>.</h1>
+        <p class="lede">
+          Este livro conta a minha trajetória pelos jogos que atravessaram a minha vida: a história de cada um, as
+          lembranças que ficaram presas neles e as pessoas que estavam na sala enquanto eu jogava.
+        </p>
+        <p class="lede">Começa numa feira, com um videogame trocado pelo dinheiro das verduras.</p>
+        <p class="lede">Cada capítulo também é um vídeo no canal.</p>
+        <div class="actions">
+          <button class="button is-soon" type="button" disabled>
+            Em breve<span class="caret" aria-hidden="true"></span>
+          </button>
+          <a class="quiet" href={SITE.channelUrl} target="_blank" rel="noopener">Assistir no YouTube</a>
+        </div>
+        <p class="book-specs">Livro de bolso · 10,3 × 13,8 cm · {SITE.author.name}</p>
+      </section>
+
+      <figure class="book-object" data-book data-faces={JSON.stringify(faces)} data-size={JSON.stringify(BOOK)}>
+        <img class="book-fallback" src={faces.front} alt="Capa do livro type & play" width="1045" height="1400" />
+        <canvas class="book-canvas" aria-hidden="true"></canvas>
+        <figcaption class="book-hint">
+          <span>Arraste para girar · toque para ver a contracapa</span>
+          <button type="button" class="book-turn" data-book-turn>Virar o livro</button>
+        </figcaption>
+      </figure>
+    </div>
+  </main>
+</Base>
+
+<script>
+  import { mountBook } from "../scripts/book3d.js"
+
+  // The flat cover shows first; the 3D book takes its place once it has loaded.
+  // Without WebGL the cover simply stays.
+  const holder = document.querySelector<HTMLElement>("[data-book]")
+  const canvas = holder?.querySelector<HTMLCanvasElement>(".book-canvas")
+  if (holder && canvas) {
+    const faces = JSON.parse(holder.dataset.faces ?? "{}")
+    const size = JSON.parse(holder.dataset.size ?? "{}")
+    mountBook(canvas, { faces, size, ground: "#e6dcc6" })
+      .then(book => {
+        holder.classList.add("is-ready")
+        holder.querySelector("[data-book-turn]")?.addEventListener("click", () => book.turn())
+      })
+      .catch(() => {})
+  }
+</script>

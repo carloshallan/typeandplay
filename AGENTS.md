@@ -39,3 +39,8 @@ Rules for anyone (person or agent) working in this repository. The README explai
 - Moving between pages, a curtain of ink pixel blocks sweeps left to right, covering and then uncovering (`PageCurtain.astro`). Animations always respect reduced motion.
 - In post text, `##` headings carry the turquoise menu cursor, `###` headings are ink labels, `####` headings get the red power-light square.
 - No Nintendo (or other console maker's) names, logos or sounds in the brand: the channel art, logo, intro and site chrome. Writing about games inside posts is fine.
+
+## The book page (`/livro`)
+
+- The 3D book is `src/scripts/book3d.js` (three.js), modelled on chblacksmith-site's Book3D. The same file is copied into the print cover's source in Dropbox (`C.H. Blacksmith/type & play/print/cover-source/`), which has a "Ver em 3D" button; change both together.
+- `public/book/front.jpg`, `spine.jpg` and `back.jpg` are cut from that print cover, already trimmed to the finished book (103 × 138 mm, spine 16.5 mm), 1400 px tall. When the cover changes, cut them again.

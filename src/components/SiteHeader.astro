@@ -2,6 +2,7 @@
 import { SITE, withBase } from "../lib/site"
 
 const inBlog = Astro.url.pathname.startsWith(withBase("/blog"))
+const inBook = Astro.url.pathname.startsWith(withBase("/livro"))
 ---
 
 <!-- Floating pills instead of a bar, so the page starts at the top of the window: the
@@ -24,6 +25,7 @@ const inBlog = Astro.url.pathname.startsWith(withBase("/blog"))
     </a>
     <nav class="site-nav" aria-label="Principal">
       <a class="header-pill nav-pill" href={withBase("/blog/")} aria-current={inBlog ? "page" : undefined}>Blog</a>
+      <a class="header-pill nav-pill" href={withBase("/livro/")} aria-current={inBook ? "page" : undefined}>Livro</a>
       <a class="header-pill nav-pill" href={SITE.channelUrl} target="_blank" rel="noopener">
         YouTube <span aria-hidden="true">↗</span>
       </a>
