@@ -13,7 +13,7 @@ export const BANNER_SIZE = { width: 2560, height: 1440 } as const
 
 /** The words on the screen, one set per channel language. */
 const COPY = {
-  pt: { file: "Arquivo 01 · Novo jogo", card: "Cartão A", line: "Alguns jogos guardam mais do que o progresso." },
+  pt: { file: "Arquivo 01 · Novo jogo", card: "Cartão A", line: "Alguns jogos salvam mais do que o progresso." },
   en: { file: "File 01 · New game", card: "Card A", line: "Some games save more than your progress." }
 } as const
 
