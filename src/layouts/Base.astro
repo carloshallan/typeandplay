@@ -26,6 +26,7 @@ const {
   noindex = false
 } = Astro.props
 
+const hasHeaderLead = Astro.slots.has("header-lead")
 const fullTitle = title ? `${title} · ${SITE.name}` : SITE.name
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const imageUrl = new URL(image, Astro.site)
@@ -73,9 +74,11 @@ const imageUrl = new URL(image, Astro.site)
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=VT323&display=swap"
     />
   </head>
-  <body class={`tone-${tone}`}>
+  <body class:list={[`tone-${tone}`, { "has-header-lead": hasHeaderLead }]}>
     <PageCurtain />
-    <SiteHeader />
+    <SiteHeader>
+      <slot name="header-lead" slot="lead" />
+    </SiteHeader>
     <slot />
     <SiteFooter />
   </body>

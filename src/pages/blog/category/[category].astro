@@ -1,6 +1,7 @@
 ---
 import Base from "../../../layouts/Base.astro"
 import BlogShelf from "../../../components/BlogShelf.astro"
+import BlogHeaderLead from "../../../components/BlogHeaderLead.astro"
 import { categorySlug, getCategories, getPosts, type Category } from "../../../lib/posts"
 
 export async function getStaticPaths() {
@@ -21,5 +22,6 @@ const posts = all.filter(post => post.data.categories.some(name => categorySlug(
 ---
 
 <Base tone="reader" title={category.name} description={`Textos do type & play em ${category.name}.`}>
-  <BlogShelf title={category.name} posts={posts} categories={getCategories(all)} active={category.slug} />
+  <BlogHeaderLead slot="header-lead" title={category.name} />
+  <BlogShelf posts={posts} categories={getCategories(all)} active={category.slug} />
 </Base>

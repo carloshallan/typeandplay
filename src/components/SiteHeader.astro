@@ -4,21 +4,31 @@ import { SITE, withBase } from "../lib/site"
 const inBlog = Astro.url.pathname.startsWith(withBase("/blog"))
 ---
 
-<!-- Floating pills in the top corner instead of a bar, so the page starts at the top of the
-     window. They tuck away while you scroll down to read and come back when you scroll up. -->
+<!-- Floating pills instead of a bar, so the page starts at the top of the window: the
+     page's own lead on the left (the blog's title and search), the logo and links on the
+     right. They tuck away while you scroll down to read and come back when you scroll up. -->
 <header class="site-header" id="site-header">
-  <a class="header-pill brand" href={withBase("/")} aria-label="type & play, início">
-    <span class="brand-mark"><img src={withBase("/logo.svg")} alt="" width="40" height="40" /></span>
-    <span class="wordmark">
-      <span class="w-type">type</span>{" "}<span class="w-amp">&amp;</span>{" "}<span class="w-play">play</span>
-    </span>
-  </a>
-  <nav class="site-nav" aria-label="Principal">
-    <a class="header-pill nav-pill" href={withBase("/blog/")} aria-current={inBlog ? "page" : undefined}>Blog</a>
-    <a class="header-pill nav-pill" href={SITE.channelUrl} target="_blank" rel="noopener">
-      YouTube <span aria-hidden="true">↗</span>
+  {
+    Astro.slots.has("lead") && (
+      <div class="header-lead">
+        <slot name="lead" />
+      </div>
+    )
+  }
+  <div class="header-pills">
+    <a class="header-pill brand" href={withBase("/")} aria-label="type & play, início">
+      <span class="brand-mark"><img src={withBase("/logo.svg")} alt="" width="40" height="40" /></span>
+      <span class="wordmark">
+        <span class="w-type">type</span>{" "}<span class="w-amp">&amp;</span>{" "}<span class="w-play">play</span>
+      </span>
     </a>
-  </nav>
+    <nav class="site-nav" aria-label="Principal">
+      <a class="header-pill nav-pill" href={withBase("/blog/")} aria-current={inBlog ? "page" : undefined}>Blog</a>
+      <a class="header-pill nav-pill" href={SITE.channelUrl} target="_blank" rel="noopener">
+        YouTube <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </div>
 </header>
 
 <script>

@@ -1,0 +1,21 @@
+---
+/** The blog's title and search, shown in the floating header beside the pills. */
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<h1 class="header-title">{title}</h1>
+<form class="header-search" role="search" onsubmit="return false">
+  <label for="blog-search-input">Buscar</label>
+  <input
+    id="blog-search-input"
+    type="search"
+    name="q"
+    placeholder="Um jogo, um console, uma palavra"
+    autocomplete="off"
+    spellcheck="false"
+  />
+</form>

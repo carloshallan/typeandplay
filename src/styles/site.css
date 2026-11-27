@@ -40,17 +40,83 @@ a { color: inherit; }
   border-radius: 6px;
 }
 
-/* ---------- Header: floating pills in the top-right corner ---------- */
+/* ---------- Header: floating pills, the page's lead on the left and the logo and links on the right ---------- */
 .site-header {
   position: fixed;
   top: 16px;
   right: 16px;
+  left: 16px;
   z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  pointer-events: none;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.header-lead,
+.header-pills { pointer-events: auto; }
+.header-pills {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   gap: 8px;
-  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  margin-left: auto;
+}
+.header-lead { display: flex; align-items: center; gap: 18px; min-width: 0; }
+
+.header-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-style: italic;
+  font-weight: 420;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+.header-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: clamp(240px, 30vw, 420px);
+  height: 52px;
+  margin: 0;
+  padding: 0 10px 0 18px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--reader-card);
+}
+.header-search:focus-within { outline: 3px solid var(--ink); outline-offset: 3px; }
+.header-search label {
+  font-family: var(--pixel);
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.header-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.05rem;
+  outline: none;
+}
+.header-search input::placeholder { color: var(--muted-ink); opacity: 1; }
+
+/* Below desktop the lead takes its own row under the pills, and the page leaves room for both. */
+@media (max-width: 899px) {
+  .has-header-lead .site-header { flex-wrap: wrap; }
+  .has-header-lead .header-pills { order: -1; }
+  .has-header-lead .header-lead { flex-basis: 100%; }
+  .header-title { font-size: 2.2rem; }
+  .header-search { flex: 1; width: auto; }
+  body.has-header-lead { padding-top: 160px; }
+  body.has-header-lead .shelf.is-page { padding-top: 16px; }
 }
 .site-header.is-tucked:not(:focus-within) { transform: translateY(calc(-100% - 24px)); }
 
@@ -108,7 +174,7 @@ a { color: inherit; }
   body { padding-top: 80px; }
 }
 @media (min-width: 720px) {
-  .site-header { top: 20px; right: 24px; }
+  .site-header { top: 20px; right: 24px; left: 24px; }
   /* Pages whose first row reaches the right edge start below the pills. */
   body .stage,
   body .shelf.is-page { padding-top: max(100px, 8vh); }
@@ -243,7 +309,7 @@ a { color: inherit; }
 .shelf-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 8px 20px;
   margin-bottom: 18px;
@@ -259,35 +325,7 @@ a { color: inherit; }
   letter-spacing: -0.02em;
 }
 
-/* ---------- Blog tools: search and categories ---------- */
-.blog-tools {
-  display: grid;
-  gap: 14px;
-  margin-bottom: 22px;
-}
-
-.blog-search { display: flex; align-items: center; gap: 12px; margin: 0; }
-.blog-search label {
-  font-family: var(--pixel);
-  font-size: 1.35rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.blog-search input {
-  flex: 1;
-  min-width: 0;
-  max-width: 34rem;
-  padding: 10px 18px;
-  border: 3px solid var(--ink);
-  border-radius: 999px;
-  background: var(--paper);
-  color: var(--ink);
-  font: inherit;
-  font-size: 1.05rem;
-}
-.blog-search input::placeholder { color: var(--muted-ink); opacity: 1; }
-.blog-search input:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-
+/* ---------- Blog categories ---------- */
 .category-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .category-chips a {
   padding: 2px 12px;

@@ -1,11 +1,13 @@
 ---
 import Base from "../../layouts/Base.astro"
 import BlogShelf from "../../components/BlogShelf.astro"
+import BlogHeaderLead from "../../components/BlogHeaderLead.astro"
 import { getCategories, getPosts } from "../../lib/posts"
 
 const posts = await getPosts()
 ---
 
 <Base tone="reader" title="Blog" description="O blog do type & play: todos os textos, do mais novo ao mais antigo.">
-  <BlogShelf title="Blog" posts={posts} categories={getCategories(posts)} />
+  <BlogHeaderLead slot="header-lead" title="Blog" />
+  <BlogShelf posts={posts} categories={getCategories(posts)} />
 </Base>

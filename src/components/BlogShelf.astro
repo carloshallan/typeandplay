@@ -4,36 +4,19 @@ import { type Category, type Post } from "../lib/posts"
 import { withBase } from "../lib/site"
 
 interface Props {
-  title: string
   posts: Post[]
   categories: Category[]
   /** Slug of the category this page shows, if any. */
   active?: string
 }
 
-const { title, posts, categories, active } = Astro.props
+const { posts, categories, active } = Astro.props
 const saved = `${posts.length} ${posts.length === 1 ? "memória salva" : "memórias salvas"}`
 ---
 
 <main class="shelf is-page">
+  <!-- The title and the search box live in the header (BlogHeaderLead.astro). -->
   <div class="shelf-head">
-    <h1 class="shelf-title">{title}</h1>
-    <p class="hud">{saved}</p>
-  </div>
-
-  <div class="blog-tools">
-    <form class="blog-search" role="search" onsubmit="return false">
-      <label for="blog-search-input">Buscar</label>
-      <input
-        id="blog-search-input"
-        type="search"
-        name="q"
-        placeholder="Um jogo, um console, uma palavra"
-        autocomplete="off"
-        spellcheck="false"
-      />
-    </form>
-
     {
       categories.length > 0 && (
         <nav class="category-chips" aria-label="Categorias">
@@ -51,6 +34,7 @@ const saved = `${posts.length} ${posts.length === 1 ? "memória salva" : "memór
         </nav>
       )
     }
+    <p class="hud">{saved}</p>
   </div>
 
   <PostSlots posts={posts} />

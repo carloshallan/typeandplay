@@ -35,7 +35,7 @@ Rules for anyone (person or agent) working in this repository. The README explai
 - Solid colours; no gradients, shadows or transparency. Thick ink borders (3 to 4 px). Cards and boxes take their border on all four sides, never a single coloured edge.
 - Two typefaces: Fraunces (serif, the writing) and VT323 (pixel, the game). Page titles (`h1`) wear the logo's "type": Fraunces italic, weight 420.
 - The blog pages and every post card use Momo's E-ink reading colours (`--reader-*` in `src/tokens.css`); the footer stays turquoise.
-- No header bar: the logo and links are floating pills in the top-right corner (like momoparaescritores.com.br), tucked away while scrolling down and back on scrolling up, so the text starts at the top of the window.
+- No header bar: the logo and links are floating pills in the top-right corner (like momoparaescritores.com.br), tucked away while scrolling down and back on scrolling up, so the text starts at the top of the window. A page can put its own lead on the left of that row through Base's `header-lead` slot; the blog uses it for its title and search (`BlogHeaderLead.astro`).
 - Moving between pages, a curtain of ink pixel blocks sweeps left to right, covering and then uncovering (`PageCurtain.astro`). Animations always respect reduced motion.
 - In post text, `##` headings carry the turquoise menu cursor, `###` headings are ink labels, `####` headings get the red power-light square.
 - No Nintendo (or other console maker's) names, logos or sounds in the brand: the channel art, logo, intro and site chrome. Writing about games inside posts is fine.
