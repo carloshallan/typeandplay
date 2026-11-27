@@ -54,6 +54,11 @@
   border-radius: 14px;
 }
 
+/* Full HD and up: a wider column, with the type grown to keep about 80 characters a line. */
+@media (min-width: 1600px) {
+  .post { max-width: 980px; }
+}
+
 /* ---------- Body text ---------- */
 .prose {
   margin-top: 40px;
@@ -62,6 +67,10 @@
   text-wrap: pretty;
 }
 .prose > :first-child { margin-top: 0; }
+@media (min-width: 1600px) {
+  .prose { font-size: 1.32rem; }
+  .post-lede { font-size: 1.5rem; }
+}
 
 .prose p { margin: 0 0 1.3em; }
 

@@ -48,23 +48,24 @@ const T = {
  * public/sounds/LICENSE-typewriter.txt), the wide key for the A button, and an
  * original 8-bit power-on chime when the memory is saved.
  */
-const KEY_SOUNDS = [1, 2, 3, 4, 5, 6, 7].map(n => staticFile(`sounds/typewriter${n}.wav`))
-const PRESS_SOUND = staticFile("sounds/typewriter8.wav")
-const CHIME = staticFile("sounds/power-on.wav")
+const KEY_SOUNDS = [1, 2, 3, 4, 5, 6, 7].map(n => `sounds/typewriter${n}.wav`)
+const PRESS_SOUND = "sounds/typewriter8.wav"
+const CHIME = "sounds/power-on.wav"
 
 function Soundtrack() {
+  // staticFile() runs here, not at import, so the browser player can set the site's base first.
   return (
     <>
       {T.keys.map((key, i) => (
         <Sequence key={key} from={key} durationInFrames={at(0.7)} layout="none">
-          <Html5Audio src={KEY_SOUNDS[i % KEY_SOUNDS.length]} volume={0.85} />
+          <Html5Audio src={staticFile(KEY_SOUNDS[i % KEY_SOUNDS.length])} volume={0.85} />
         </Sequence>
       ))}
       <Sequence from={T.pressA} durationInFrames={at(0.7)} layout="none">
-        <Html5Audio src={PRESS_SOUND} volume={0.9} />
+        <Html5Audio src={staticFile(PRESS_SOUND)} volume={0.9} />
       </Sequence>
       <Sequence from={T.saved} layout="none">
-        <Html5Audio src={CHIME} volume={0.8} />
+        <Html5Audio src={staticFile(CHIME)} volume={0.8} />
       </Sequence>
     </>
   )

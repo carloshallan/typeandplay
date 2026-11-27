@@ -10,7 +10,7 @@ year: 2000
 draft: true
 ---
 
-Cada texto mora numa pasta dentro de `src/content/posts/`. O nome da pasta vira o endereço: esta pasta se chama `how-to-write`, então o texto abre em `/posts/how-to-write/`. Use letras minúsculas e hífens no nome da pasta, sem acentos.
+Cada texto mora numa pasta dentro de `src/content/posts/`. O nome da pasta vira o endereço: esta pasta se chama `how-to-write`, então o texto abre em `carloshallan.github.io/typeandplay/posts/how-to-write/`. Use letras minúsculas e hífens no nome da pasta, sem acentos.
 
 ## O cabeçalho
 
@@ -30,6 +30,8 @@ Coloque a imagem na mesma pasta do texto e chame assim:
 ![A tela do console do type & play](./console.png)
 
 O site gera versões menores sozinho, então pode usar a foto original.
+
+Para apontar para outro texto do blog, use o caminho a partir desta pasta: `[o outro texto](../outro-texto/)`.
 
 ## Citações e pausas
 

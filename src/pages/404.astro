@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro"
+import { withBase } from "../lib/site"
 ---
 
 <Base title="Fim de jogo" noindex>
@@ -9,8 +10,8 @@ import Base from "../layouts/Base.astro"
       <h1>Esta página não foi <em>salva</em>.<span class="caret" aria-hidden="true"></span></h1>
       <p class="lede">O endereço pode ter mudado, ou o texto ainda não foi escrito.</p>
       <div class="actions">
-        <a class="button" href="/"><span class="play" aria-hidden="true">▶</span> Continuar do início</a>
-        <a class="quiet" href="/posts/">Ver os textos</a>
+        <a class="button" href={withBase("/")}><span class="play" aria-hidden="true">▶</span> Continuar do início</a>
+        <a class="quiet" href={withBase("/posts/")}>Ver os textos</a>
       </div>
     </section>
   </main>

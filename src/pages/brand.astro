@@ -1,12 +1,13 @@
 ---
 import Base from "../layouts/Base.astro"
+import { withBase } from "../lib/site"
 import "../styles/tools.css"
 
 const BANNERS = [
-  { language: "Português", src: "/brand/youtube-banner-pt.png", file: "type-and-play-capa.png" },
-  { language: "English", src: "/brand/youtube-banner-en.png", file: "type-and-play-banner.png" }
+  { language: "Português", src: withBase("/brand/youtube-banner-pt.png"), file: "type-and-play-capa.png" },
+  { language: "English", src: withBase("/brand/youtube-banner-en.png"), file: "type-and-play-banner.png" }
 ]
-const LOGO = "/brand/youtube-logo.png"
+const LOGO = withBase("/brand/youtube-logo.png")
 const LOGO_SIZES = [160, 98, 40]
 ---
 

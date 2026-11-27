@@ -2,6 +2,10 @@ import { useState } from "react"
 import { Player } from "@remotion/player"
 import { Intro, INTRO, type IntroLanguage } from "../video/Intro"
 
+// The site is served under a base path, so Remotion's staticFile() must look for public/ there.
+const base = import.meta.env.BASE_URL.replace(/\/$/, "")
+if (base) (window as Window & { remotion_staticBase?: string }).remotion_staticBase = base
+
 const LANGUAGES: { id: IntroLanguage; label: string }[] = [
   { id: "pt", label: "Português" },
   { id: "en", label: "English" }

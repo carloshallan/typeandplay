@@ -1,6 +1,6 @@
 # type & play
 
-Blog and home of the [type & play](https://www.youtube.com/@typeandplay) channel: video and written essays about the games that went through my life. Built with Astro, published to GitHub Pages at https://typeandplay.github.io.
+Blog and home of the [type & play](https://www.youtube.com/@typeandplay) channel: video and written essays about the games that went through my life. Built with Astro, published to GitHub Pages at https://carloshallan.github.io/typeandplay/.
 
 ## Writing a post
 
@@ -25,6 +25,8 @@ draft: true                # optional: shows in `npm run dev` only
 ```
 
 Images: `![description](./photo.jpg)`. Astro resizes them at build time, so originals are fine.
+
+Links to other posts: `[texto](../other-post/)`. The site lives under `/typeandplay/`, so a link starting with `/` would miss it.
 
 Videos: rename the file to `index.mdx` and write `<YouTube id="VIDEO_ID" />` on its own line.
 
@@ -54,7 +56,7 @@ Tokens live in `src/tokens.css`. The console is one React component (`src/compon
 
 ```sh
 npm install
-npm run dev        # http://localhost:4321 (drafts included)
+npm run dev        # http://localhost:4321/typeandplay/ (drafts included)
 npm run build      # type-check and build the static site into dist/
 npm run studio     # Remotion Studio, to edit the intro frame by frame
 npm run intro      # out/intro-pt.mp4 and out/intro-en.mp4 (1920×1080, 60 fps, with sound)

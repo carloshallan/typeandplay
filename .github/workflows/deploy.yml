@@ -17,9 +17,8 @@ concurrency:
 
 jobs:
   build:
-    # Publishes only from the channel's own Pages repository, so a fork or the
-    # old personal copy never deploys under the wrong address.
-    if: github.repository == 'typeandplay/typeandplay.github.io'
+    # Publishes only from this repository, so a fork never deploys a copy.
+    if: github.repository == 'carloshallan/typeandplay'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
