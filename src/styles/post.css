@@ -73,6 +73,8 @@
   display: block;
   width: 100%;
   height: min(74vh, 700px);
+  /* Whole pixels, so the title card's outline meets the line under the cover exactly. */
+  height: round(min(74vh, 700px), 1px);
   object-fit: cover;
   object-position: center 30%;
   border-bottom: 3px solid var(--ink);
@@ -83,6 +85,7 @@
    where it meets the line under the cover. */
 .post-hero.has-cover .post-head {
   --rise: clamp(140px, 24vh, 260px);
+  --rise: round(clamp(140px, 24vh, 260px), 1px);
   position: relative;
   margin-top: calc(-1 * var(--rise));
   padding-top: 0;
@@ -97,9 +100,8 @@
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  /* Ends inside the cover's 3px line rather than at its edge, so pixel rounding never
-     lets the sides poke out below it. */
-  height: calc(var(--rise) - 2px);
+  /* Down to the bottom of the cover's line: both are whole pixels, so they end together. */
+  height: var(--rise);
   border: 3px solid var(--ink);
   border-bottom: 0;
   border-radius: 18px 18px 0 0;
