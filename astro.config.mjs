@@ -7,9 +7,8 @@ import sitemap from "@astrojs/sitemap"
 const WORKSHOP = /\/(intro|brand)\/?$/
 
 export default defineConfig({
-  // Served as a project page of the personal GitHub account, under /typeandplay/.
-  site: "https://carloshallan.github.io",
-  base: "/typeandplay",
+  // Built and served by Cloudflare Pages from this repository on every push to main.
+  site: "https://typeandplay.pages.dev",
   devToolbar: { enabled: false },
   integrations: [mdx(), react(), sitemap({ filter: page => !WORKSHOP.test(new URL(page).pathname) })]
 })

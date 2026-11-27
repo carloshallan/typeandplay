@@ -10,7 +10,7 @@ year: 2000
 draft: true
 ---
 
-Cada texto mora numa pasta dentro de `src/content/posts/`. O nome da pasta vira o endereço: esta pasta se chama `how-to-write`, então o texto abre em `carloshallan.github.io/typeandplay/posts/how-to-write/`. Use letras minúsculas e hífens no nome da pasta, sem acentos.
+Cada texto mora numa pasta dentro de `src/content/posts/`. O nome da pasta vira o endereço: esta pasta se chama `how-to-write`, então o texto abre em `typeandplay.pages.dev/posts/how-to-write/`. Use letras minúsculas e hífens no nome da pasta, sem acentos.
 
 ## O cabeçalho
 
@@ -49,4 +49,4 @@ Para pôr um vídeo do YouTube no meio do texto, troque a extensão do arquivo d
 
 ## Publicar
 
-Salve, faça commit e push para a branch `main`. O GitHub monta o site e publica em uns dois minutos.
+Salve, faça commit e push para a branch `main`. O Cloudflare monta o site e publica em uns dois minutos.

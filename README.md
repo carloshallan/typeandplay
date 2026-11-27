@@ -1,12 +1,12 @@
 # type & play
 
-Blog and home of the [type & play](https://www.youtube.com/@typeandplay) channel: video and written essays about the games that went through my life. Built with Astro, published to GitHub Pages at https://carloshallan.github.io/typeandplay/.
+Blog and home of the [type & play](https://www.youtube.com/@typeandplay) channel: video and written essays about the games that went through my life. Built with Astro, published by Cloudflare Pages at https://typeandplay.pages.dev.
 
 ## Writing a post
 
 1. Create a folder in `src/content/posts/`, named the way the address should read: `src/content/posts/my-post/` becomes `/posts/my-post/`. Lowercase, hyphens, no accents.
 2. Write `index.md` inside it and put the images next to it.
-3. Commit and push to `main`. The `Deploy to GitHub Pages` workflow builds and publishes the site in a couple of minutes.
+3. Commit and push to `main`. Cloudflare Pages builds and publishes the site in a couple of minutes.
 
 Front matter:
 
@@ -26,7 +26,7 @@ draft: true                # optional: shows in `npm run dev` only
 
 Images: `![description](./photo.jpg)`. Astro resizes them at build time, so originals are fine.
 
-Links to other posts: `[texto](../other-post/)`. The site lives under `/typeandplay/`, so a link starting with `/` would miss it.
+Links to other posts: `[texto](../other-post/)`. Relative links keep working if the site ever moves under a sub-path.
 
 Videos: rename the file to `index.mdx` and write `<YouTube id="VIDEO_ID" />` on its own line.
 
@@ -56,7 +56,7 @@ Tokens live in `src/tokens.css`. The console is one React component (`src/compon
 
 ```sh
 npm install
-npm run dev        # http://localhost:4321/typeandplay/ (drafts included)
+npm run dev        # http://localhost:4321 (drafts included)
 npm run build      # type-check and build the static site into dist/
 npm run studio     # Remotion Studio, to edit the intro frame by frame
 npm run intro      # out/intro-pt.mp4 and out/intro-en.mp4 (1920×1080, 60 fps, with sound)
@@ -97,3 +97,16 @@ The key sounds are CC0 (Cassie-OrbitGames, OpenGameArt); see `public/sounds/LICE
 
 - **Banner:** the screen with the name and the line sits inside the central 1546×423 area, the only part phones show. The cross pad and buttons fill the sides of the middle band (computers). The seam, pill buttons and speaker only show on TVs.
 - **Picture:** the console screen with the caret and the play button, well inside the circle.
+
+## Hosting
+
+Cloudflare Pages, connected to this repository (Workers & Pages → the `typeandplay` project). Every push to `main` builds and publishes; other branches get preview URLs.
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | Astro |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Node | from `.node-version` (24) |
+
+`withBase()` in `src/lib/site.ts` prefixes internal links with Astro's `base`, so moving the site under a sub-path only needs `base` in `astro.config.mjs`.
