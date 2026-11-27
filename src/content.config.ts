@@ -5,7 +5,7 @@ import { z } from "astro/zod"
 /**
  * One post per folder (`src/content/posts/my-post/index.md`, with its images
  * beside it) or per file (`src/content/posts/my-post.md`). Both become
- * /posts/my-post/. Files and folders starting with "_" are ignored.
+ * /blog/my-post/. Files and folders starting with "_" are ignored.
  */
 const posts = defineCollection({
   loader: glob({

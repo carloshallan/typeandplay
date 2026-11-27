@@ -43,5 +43,5 @@ const DATE_FORMAT = new Intl.DateTimeFormat("pt-BR", {
 })
 
 export const formatDate = (date: Date) => DATE_FORMAT.format(date)
-export const postUrl = (post: PostEntry) => withBase(`/posts/${post.id}/`)
+export const postUrl = (post: PostEntry) => withBase(`/blog/${post.id}/`)
 export const padNumber = (n: number) => String(n).padStart(2, "0")

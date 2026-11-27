@@ -10,7 +10,7 @@ year: 2000
 draft: true
 ---
 
-Cada texto mora numa pasta dentro de `src/content/posts/`. O nome da pasta vira o endereço: esta pasta se chama `how-to-write`, então o texto abre em `typeandplay.pages.dev/posts/how-to-write/`. Use letras minúsculas e hífens no nome da pasta, sem acentos.
+Cada texto mora numa pasta dentro de `src/content/posts/`. O nome da pasta vira o endereço: esta pasta se chama `how-to-write`, então o texto abre em `typeandplay.pages.dev/blog/how-to-write/`. Use letras minúsculas e hífens no nome da pasta, sem acentos.
 
 ## O cabeçalho
 

@@ -4,7 +4,7 @@ Blog and home of the [type & play](https://www.youtube.com/@typeandplay) channel
 
 ## Writing a post
 
-1. Create a folder in `src/content/posts/`, named the way the address should read: `src/content/posts/my-post/` becomes `/posts/my-post/`. Lowercase, hyphens, no accents.
+1. Create a folder in `src/content/posts/`, named the way the address should read: `src/content/posts/my-post/` becomes `/blog/my-post/`. Lowercase, hyphens, no accents.
 2. Write `index.md` inside it and put the images next to it.
 3. Commit and push to `main`. Cloudflare Pages builds and publishes the site in a couple of minutes.
 
@@ -71,7 +71,7 @@ Renders use the installed Google Chrome when there is one (`remotion.config.ts`)
 src/
   content/posts/    posts, one folder each
   content.config.ts post front matter schema
-  pages/            routes: /, /posts/, /posts/<slug>/, /rss.xml, /intro/, /brand/, 404
+  pages/            routes: /, /blog/, /blog/<slug>/, /rss.xml, /intro/, /brand/, 404
   layouts/Base.astro
   components/       Console, SaveScreen, PostSlots, YouTube embed, intro player
   styles/           site.css, post.css, tools.css (workshop pages)

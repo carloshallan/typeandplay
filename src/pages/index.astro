@@ -33,7 +33,7 @@ const RECENT = 6
     <section class="shelf" aria-labelledby="shelf-title">
       <div class="shelf-head">
         <h2 id="shelf-title" class="hud">Memórias salvas</h2>
-        {posts.length > RECENT && <a class="quiet" href={withBase("/posts/")}>Todos os textos</a>}
+        {posts.length > RECENT && <a class="quiet" href={withBase("/blog/")}>Ver o blog inteiro</a>}
       </div>
       <PostSlots posts={posts.slice(0, RECENT)} />
     </section>

@@ -7,7 +7,7 @@ export const SITE = {
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "")
 
-/** A path on this site, with the base the site is served under: withBase("/posts/"). */
+/** A path on this site, with the base the site is served under: withBase("/blog/"). */
 export const withBase = (path: string) => `${BASE}${path}`
 
 export const SUBSCRIBE_URL = `${SITE.channelUrl}?sub_confirmation=1`

@@ -1,7 +1,7 @@
 ---
 import { SITE, withBase } from "../lib/site"
 
-const inPosts = Astro.url.pathname.startsWith(withBase("/posts"))
+const inBlog = Astro.url.pathname.startsWith(withBase("/blog"))
 ---
 
 <header class="site-header">
@@ -12,7 +12,7 @@ const inPosts = Astro.url.pathname.startsWith(withBase("/posts"))
     </span>
   </a>
   <nav class="site-nav" aria-label="Principal">
-    <a class="nav-link" href={withBase("/posts/")} aria-current={inPosts ? "page" : undefined}>Textos</a>
+    <a class="nav-link" href={withBase("/blog/")} aria-current={inBlog ? "page" : undefined}>Blog</a>
     <a class="nav-pill" href={SITE.channelUrl} target="_blank" rel="noopener">
       YouTube <span aria-hidden="true">↗</span>
     </a>
