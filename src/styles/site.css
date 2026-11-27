@@ -58,8 +58,8 @@ a { color: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  height: 48px;
-  padding: 0 16px;
+  height: 52px;
+  padding: 0 20px;
   border: 3px solid var(--ink);
   border-radius: 999px;
   background: var(--reader-card);
@@ -70,7 +70,7 @@ a { color: inherit; }
 .header-pill:hover,
 .header-pill[aria-current="page"] { background: var(--ink); color: var(--reader-card); }
 
-.brand { padding: 0 16px 0 5px; }
+.brand { gap: 10px; padding: 0 22px 0 10px; }
 .brand:hover { background: var(--reader-card); color: var(--ink); }
 .brand:hover .w-play { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
 
@@ -95,13 +95,13 @@ a { color: inherit; }
 
 /* Phones: the pills would sit on the first lines, so the page leaves them a strip. */
 @media (max-width: 719px) {
-  body { padding-top: 76px; }
+  body { padding-top: 80px; }
 }
 @media (min-width: 720px) {
   .site-header { top: 20px; right: 24px; }
   /* Pages whose first row reaches the right edge start below the pills. */
   body .stage,
-  body .shelf.is-page { padding-top: max(92px, 8vh); }
+  body .shelf.is-page { padding-top: max(100px, 8vh); }
 }
 
 /* ---------- Footer ---------- */
@@ -395,9 +395,9 @@ a.post-slot:hover .post-slot-cover { border-color: var(--paper); }
 
 /* ---------- Phones ---------- */
 @media (max-width: 560px) {
-  .header-pill { height: 44px; padding: 0 12px; }
+  .header-pill { height: 46px; padding: 0 14px; }
   .nav-pill { font-size: 1.2rem; }
-  .brand { padding: 0 5px; }
+  .brand { padding: 0 8px; }
   .brand .wordmark { display: none; }
   .post-slot { grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 14px 14px 14px 12px; }
   .post-slot-n { font-size: 1.9rem; }
