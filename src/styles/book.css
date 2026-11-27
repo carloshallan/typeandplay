@@ -1,101 +1,57 @@
-/* ---------- The book page: the copy on the left, the book in 3D on the right ---------- */
-.book-stage { min-height: calc(100svh - 40px); }
-.book-stage .hero h1 { font-size: clamp(2.3rem, 5.4vw, 4.1rem); }
-/* On paper, the highlight takes the shell's turquoise, the colour of the book. */
+/* Two independently rotatable books, presented as one box. */
+.book-stage { max-width: 1440px; min-height: calc(100svh - 40px); gap: 32px; }
+.book-stage .hero h1 { font-size: clamp(2.5rem, 4.8vw, 4.1rem); font-style: italic; }
 .book-stage .hero h1 em { background: var(--shell); }
-.book-stage .lede { margin-top: 18px; }
-.book-stage .lede:first-of-type { margin-top: 26px; }
-
-/* "Em breve": the button is there, it just isn't pressable yet. */
-.button.is-soon,
-.button.is-soon:hover {
+.book-stage .lede { margin-top: 20px; }
+.book-stage .actions { gap: 16px 22px; }
+.button.is-soon, .button.is-soon:hover {
   font: inherit;
   font-weight: 500;
-  background: transparent;
+  background: var(--paper);
   color: var(--ink);
   cursor: default;
 }
-.button.is-soon .caret {
-  display: inline-block;
-  width: 0.5em;
-  height: 1em;
-  margin-left: -4px;
-  background: var(--ink);
-  animation: blink 1s steps(1) infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .button.is-soon .caret { animation: none; }
-}
-
 .book-specs {
   margin: 28px 0 0;
   font-family: var(--pixel);
   font-size: 1.15rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted-ink);
 }
-
-.book-object {
-  position: relative;
-  width: 100%;
-  height: clamp(380px, 72vh, 640px);
-  margin: 0;
-}
-.book-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  touch-action: pan-y;
-}
+.book-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 4px; min-width: 0; }
+.book-volume { margin: 0; min-width: 0; }
+.book-object { position: relative; width: 100%; height: clamp(280px, 37vw, 510px); }
+.book-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; touch-action: pan-y; }
 .book-fallback {
   position: absolute;
   left: 50%;
   top: 46%;
-  height: 66%;
-  width: auto;
-  border: 3px solid var(--ink);
+  width: 76%;
+  height: auto;
+  max-height: 75%;
+  object-fit: contain;
   transform: translate(-50%, -50%);
-  transition: opacity 0.4s ease;
 }
 .book-object.is-ready .book-canvas { opacity: 1; }
-.book-object.is-ready .book-fallback { opacity: 0; }
-
-.book-hint {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  font-family: var(--pixel);
-  font-size: 1.1rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted-ink);
-}
-.book-object:not(.is-ready) .book-hint { display: none; }
-/* For keyboards and screen readers: shown when it has focus. */
-.book-turn {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-}
-.book-turn:focus-visible {
-  position: static;
-  width: auto;
-  height: auto;
-  clip-path: none;
-  margin-left: 12px;
-  padding: 2px 10px;
-  border: 3px solid var(--ink);
-  border-radius: 999px;
-  background: var(--paper);
-  font: inherit;
-  text-transform: inherit;
-}
+.book-object.is-ready .book-fallback { visibility: hidden; }
+.book-caption { display: grid; justify-items: center; gap: 10px; padding: 0 12px; text-align: center; line-height: 1.25; text-wrap: balance; }
+.volume-tag { display: inline-block; padding: 3px 12px; border: 3px solid var(--ink); background: var(--shell); font-family: var(--pixel); font-size: 1.15rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.05em; }
+[data-theme="yellow"] { --shell: var(--book-yellow); }
+.book-hint { display: none; grid-column: 1 / -1; margin: 10px 0 0; text-align: center; font-family: var(--pixel); font-size: 1.05rem; line-height: 1.25; color: var(--muted-ink); }
+.book-pair.has-3d .book-hint { display: block; }
+.book-turn { display: none; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.book-object.is-ready .book-turn { display: block; }
+.book-turn:focus-visible { bottom: 0; left: 50%; transform: translateX(-50%); width: max-content; height: auto; clip-path: none; padding: 4px 12px; border: 3px solid var(--ink); border-radius: 999px; background: var(--paper); color: var(--ink); font: inherit; }
+.book-details { max-width: 1240px; margin: 0 auto; padding: 32px var(--gutter) 72px; scroll-margin-top: 110px; }
+.book-details-head { max-width: 44rem; margin-bottom: 28px; }
+.book-details h2 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); font-weight: 420; font-style: italic; line-height: 1.15; }
+.book-details-head > p:last-child { margin: 16px 0 0; }
+.volume-stories { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.volume-story { border: 3px solid var(--ink); border-radius: 16px; padding: clamp(22px, 3vw, 36px); }
+.volume-story h3 { margin: 22px 0 20px; font-size: clamp(1.6rem, 2.6vw, 2rem); font-weight: 460; line-height: 1.15; text-wrap: balance; }
+.volume-story p { margin: 16px 0 0; }
+.book-channel { margin: 32px 0 0; }
+@media (min-width: 1020px) { .book-stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); align-items: center; } }
+@media (max-width: 1019px) { .book-stage { grid-template-columns: minmax(0, 1fr); } .book-pair { width: min(100%, 720px); justify-self: center; } .book-object { height: clamp(260px, 55vw, 470px); } }
+@media (max-width: 560px) { .book-stage { gap: 12px; } .book-object { height: clamp(210px, 62vw, 340px); } .book-caption { padding: 0 4px; font-size: 1rem; } .volume-stories { grid-template-columns: minmax(0, 1fr); } .book-details { padding-top: 16px; } }

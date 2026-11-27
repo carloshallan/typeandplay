@@ -5,6 +5,7 @@
  * Thick ink borders do the work that depth would.
  */
 :root {
+  --book-yellow: #f4ce32; /* second book: yellow handheld shell */
   --shell: #1fa9b1;      /* turquoise shell */
   --ink: #0e2326;        /* text and lines */
   --paper: #f6f1e4;      /* highlights */

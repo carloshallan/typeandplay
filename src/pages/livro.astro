@@ -3,69 +3,118 @@ import Base from "../layouts/Base.astro"
 import { SITE, withBase } from "../lib/site"
 import "../styles/book.css"
 
-// The finished book, in mm. The faces in public/book/ are cut from the print cover
-// (Dropbox, "type & play/print"), already trimmed to this size.
+// Keep the current print dimensions until the final page count sets each spine.
 const BOOK = { width: 103, height: 138, thickness: 16.5 }
-const faces = {
-  front: withBase("/book/front.jpg"),
-  spine: withBase("/book/spine.jpg"),
-  back: withBase("/book/back.jpg")
-}
+const volumes = [
+  {
+    number: 1,
+    subtitle: "Infância, jogos retrô e crescimento",
+    folder: "/book",
+    theme: "turquoise",
+    paragraphs: [
+      "Começa numa feira, com um videogame trocado pelo dinheiro das verduras. O primeiro volume acompanha o início da minha relação com os games: os jogos retrô, as lembranças que ficaram e as pessoas que estavam na sala enquanto eu jogava.",
+      "É também uma reflexão sobre o que essa convivência me ensinou. Jogar pode aliviar os dias difíceis, exercitar a paciência, ajudar a lidar com a frustração e abrir espaço para novas amizades. Tudo isso quando os games encontram uma medida que faça bem à vida."
+    ]
+  },
+  {
+    number: 2,
+    subtitle: "Games, coleção e vida adulta",
+    folder: "/book/volume-2",
+    theme: "yellow",
+    paragraphs: [
+      "A história continua quando os jogos que não cabiam no orçamento da infância passam a ocupar as prateleiras da vida adulta. A vontade de ter o que faltou se transforma em coleção, e comprar, guardar e jogar passam a disputar tempo, dinheiro e espaço.",
+      "O segundo volume acompanha essa mudança e a busca por conciliar o prazer dos games com a família, o trabalho e as contas. Como continuar jogando, cuidar do orçamento e estar presente para quem divide a vida com a gente."
+    ]
+  }
+].map(volume => ({
+  ...volume,
+  faces: {
+    front: withBase(`${volume.folder}/front.jpg`),
+    spine: withBase(`${volume.folder}/spine.jpg`),
+    back: withBase(`${volume.folder}/back.jpg`)
+  }
+}))
 ---
 
 <Base
-  title="O livro"
+  title="O box · dois livros, uma história"
   tone="paper"
-  description="type & play vai virar livro: a trajetória pelos jogos que atravessaram a minha vida. Cada capítulo também é um vídeo no canal."
-  image={faces.front}
+  description="type & play em um box com dois livros: da infância e dos jogos retrô à coleção, à família e ao prazer de jogar na vida adulta. Por CHBLACKSMITH."
+  image={withBase("/book/box.jpg")}
 >
   <main>
     <div class="stage book-stage">
       <section class="hero">
-        <p class="hud">Arquivo 01 · Livro</p>
-        <h1>Os jogos que atravessaram a minha vida, <em>em livro</em>.</h1>
+        <p class="hud">type &amp; play · Box com 2 livros</p>
+        <h1>Uma vida com os games.<br /><em>Em dois livros.</em></h1>
         <p class="lede">
-          Este livro conta a minha trajetória pelos jogos que atravessaram a minha vida: a história de cada um, as
-          lembranças que ficaram presas neles e as pessoas que estavam na sala enquanto eu jogava.
+          Dos primeiros jogos à coleção na estante, este box reúne a minha história com os games
+          em duas partes: a infância e o crescimento; depois, o prazer de jogar em meio à vida adulta.
         </p>
-        <p class="lede">Começa numa feira, com um videogame trocado pelo dinheiro das verduras.</p>
-        <p class="lede">Cada capítulo também é um vídeo no canal.</p>
+        <p class="lede">
+          As lembranças dos jogos, as pessoas que fizeram parte delas e a busca por um equilíbrio
+          entre o tempo na tela e a vida fora dela.
+        </p>
         <div class="actions">
-          <button class="button is-soon" type="button" disabled>
-            Em breve<span class="caret" aria-hidden="true"></span>
-          </button>
-          <a class="quiet" href={SITE.channelUrl} target="_blank" rel="noopener">Assistir no YouTube</a>
+          <button class="button is-soon" type="button" disabled>Box em breve</button>
+          <a class="quiet" href="#volumes">Conheça os dois volumes</a>
         </div>
-        <p class="book-specs">Livro de bolso · 10,3 × 13,8 cm · {SITE.author.name}</p>
+        <p class="book-specs">2 livros de bolso · 10,3 × 13,8 cm cada<br />{SITE.author.name}</p>
       </section>
 
-      <figure class="book-object" data-book data-faces={JSON.stringify(faces)} data-size={JSON.stringify(BOOK)}>
-        <img class="book-fallback" src={faces.front} alt="Capa do livro type & play" width="1045" height="1400" />
-        <canvas class="book-canvas" aria-hidden="true"></canvas>
-        <figcaption class="book-hint">
-          <span>Arraste para girar · toque para ver a contracapa</span>
-          <button type="button" class="book-turn" data-book-turn>Virar o livro</button>
-        </figcaption>
-      </figure>
+      <div class="book-pair" aria-label="Os dois volumes do box type & play">
+        {volumes.map(volume => (
+          <figure class="book-volume" data-theme={volume.theme}>
+            <div class="book-object" data-book data-faces={JSON.stringify(volume.faces)} data-size={JSON.stringify(BOOK)}>
+              <img class="book-fallback" src={volume.faces.front} alt={`Capa do volume ${volume.number}: ${volume.subtitle}`} width="1045" height="1400" />
+              <canvas class="book-canvas" aria-hidden="true"></canvas>
+              <button type="button" class="book-turn" data-book-turn aria-label={`Virar o volume ${volume.number}`}>Virar o livro</button>
+            </div>
+            <figcaption class="book-caption">
+              <span class="volume-tag">Volume {volume.number}</span>
+              <span>{volume.subtitle}</span>
+            </figcaption>
+          </figure>
+        ))}
+        <p class="book-hint">Arraste para girar · toque em cada livro para ver a contracapa</p>
+      </div>
     </div>
+
+    <section class="book-details" id="volumes" aria-labelledby="volumes-title">
+      <div class="book-details-head">
+        <p class="hud">Dentro do box</p>
+        <h2 id="volumes-title">Da infância à vida adulta.</h2>
+        <p>Dois volumes que se completam, para acompanhar a história desde o primeiro start.</p>
+      </div>
+      <div class="volume-stories">
+        {volumes.map(volume => (
+          <article class="volume-story" data-theme={volume.theme}>
+            <span class="volume-tag">Volume {volume.number}</span>
+            <h3>{volume.subtitle}</h3>
+            {volume.paragraphs.map(paragraph => <p>{paragraph}</p>)}
+          </article>
+        ))}
+      </div>
+      <p class="book-channel">Cada capítulo também é um vídeo no canal. <a class="quiet" href={SITE.channelUrl} target="_blank" rel="noopener">Acompanhe no YouTube</a>.</p>
+    </section>
   </main>
 </Base>
 
 <script>
   import { mountBook } from "../scripts/book3d.js"
 
-  // The flat cover shows first; the 3D book takes its place once it has loaded.
-  // Without WebGL the cover simply stays.
-  const holder = document.querySelector<HTMLElement>("[data-book]")
-  const canvas = holder?.querySelector<HTMLCanvasElement>(".book-canvas")
-  if (holder && canvas) {
+  // Each volume turns independently; its printed cover remains if WebGL fails.
+  document.querySelectorAll<HTMLElement>("[data-book]").forEach(holder => {
+    const canvas = holder.querySelector<HTMLCanvasElement>(".book-canvas")
+    if (!canvas) return
     const faces = JSON.parse(holder.dataset.faces ?? "{}")
     const size = JSON.parse(holder.dataset.size ?? "{}")
     mountBook(canvas, { faces, size, ground: "#e6dcc6" })
       .then(book => {
         holder.classList.add("is-ready")
+        holder.closest(".book-pair")?.classList.add("has-3d")
         holder.querySelector("[data-book-turn]")?.addEventListener("click", () => book.turn())
       })
       .catch(() => {})
-  }
+  })
 </script>
